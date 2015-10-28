@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   android:orientation="vertical"
+   android:background="@drawable/bg111"
+     >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+  <FrameLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:layout_marginTop="20dip"
+   
+    >
+      
+   <TextView android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="返回"
+    android:layout_gravity="center_vertical"
+    android:textColor="@color/white"
+    android:id="@+id/back_1"
+    android:drawableLeft="@drawable/abc_ic_ab_back_holo_light"
+    android:layout_marginLeft="10dip"
+    />
+   <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="公司通讯录"
+         android:layout_gravity="center"
+            android:textSize="20dip"
+            android:id="@+id/title"
+            android:textColor="@color/white"
+            />
+      
+  </FrameLayout>
+       <RelativeLayout android:id="@+id/rlSearchFrameDelete"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+        	android:layout_centerVertical="true"
+			android:gravity="center_vertical"
+			android:layout_marginLeft="20dip"
+			android:layout_marginRight="10dip"
+			android:layout_marginTop="10dip"
+            >
+            
+		    	<EditText android:id="@+id/etSearch"
+		        	android:layout_width="fill_parent"
+		        	android:layout_height="wrap_content"
+					android:singleLine="true"
+		        	android:background="@drawable/search_frame"
+		        	android:layout_marginRight="10dp"
+		        	android:paddingLeft="32dp"
+		        	android:textSize="13sp"
+		        	android:hint="Searching..."/>
+		    	
+		    	<ImageView android:id="@+id/ivDeleteText"
+		    	    android:layout_width="wrap_content"
+		    	    android:layout_height="wrap_content"
+		    	    android:layout_alignParentRight="true"
+		    	    android:src="@drawable/delete"
+		    	    android:layout_centerInParent="true"
+		    	    android:paddingRight="20dp"
+		    	    android:visibility="gone"/>
+            
+        </RelativeLayout>
+    <com.ant.contact.View.ReboundScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dip">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_white_trans"
+            android:layout_marginTop="5dip">
+
+            <com.ant.contact.View.ScrollListView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/list_1"
+                android:scrollbars="none"
+                android:divider="@color/gray"
+                android:dividerHeight="1px"
+                android:layout_marginLeft="25dip"
+                android:layout_marginRight="10dip"
+                ></com.ant.contact.View.ScrollListView>
+
+        </LinearLayout>
+
+    </com.ant.contact.View.ReboundScrollView>
+</LinearLayout>
+
+</LinearLayout><!-- From: file:/C:/Users/qwerr/workspace/ANT2/app/src/main/res/layout/fragment1.xml -->

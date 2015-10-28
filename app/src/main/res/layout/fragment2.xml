@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+<Button android:layout_width="match_parent"
+    android:layout_height="40dip"
+    android:text="readXML"
+    android:id="@+id/readBtn"/>
+<Button android:layout_width="match_parent"
+    android:layout_height="40dip"
+    android:text="md5"
+    android:id="@+id/Md5Btn"/>
+<TextView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/texttv"
+    />
+<ListView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/test_lv"></ListView>
+</LinearLayout>

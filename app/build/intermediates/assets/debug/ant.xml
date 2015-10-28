@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NewDataSet>
+	<Table>
+		<id>1</id>
+		<firstpid>0</firstpid>
+		<pid>0</pid>
+		<pidname>蚂蚁集团</pidname>
+		<name>蚂蚁物流</name>
+		<phone>4000278181</phone>
+		<address>成都科园南二路六号</address>
+		<firstid>22</firstid>
+		<firstname>部长</firstname>
+		<secondaryidlist>14,18</secondaryidlist>
+		<secondarynamelist>处长,部长</secondarynamelist>
+		<type>经营</type>
+		<remark />
+	</Table>
+	<Table>
+		<id>2</id>
+		<firstpid>0</firstpid>
+		<pid>0</pid>
+		<pidname>蚂蚁集团</pidname>
+		<name>总裁办</name>
+		<phone>028-68295055</phone>
+		<address>成都科园南二路六号</address>
+		<firstid>12</firstid>
+		<firstname>处长</firstname>
+		<secondaryidlist>0</secondaryidlist>
+		<secondarynamelist />
+		<type>职能</type>
+		<remark />
+	</Table>
+	<Table>
+		<id>4</id>
+		<firstpid>0</firstpid>
+		<pid>0</pid>
+		<pidname>蚂蚁集团</pidname>
+		<name>计划财务部</name>
+		<phone>028-68295121</phone>
+		<address>成都科园南二路六号</address>
+		<firstid>0</firstid>
+		<firstname />
+		<secondaryidlist>0</secondaryidlist>
+		<secondarynamelist />
+		<type>职能</type>
+		<remark />
+	</Table>
+	<Table>
+		<id>5</id>
+		<firstpid>0</firstpid>
+		<pid>2</pid>
+		<pidname>总裁办</pidname>
+		<name>综合管理处</name>
+		<phone>028-68295055</phone>
+		<address>成都科园南二路六号</address>
+		<remark />
+	</Table>
+	<Table>
+		<id>6</id>
+		<firstpid>0</firstpid>
+		<pid>2</pid>
+		<pidname>总裁办</pidname>
+		<name>标信处</name>
+		<phone>028-68295072</phone>
+		<address>成都科园南二路六号</address>
+		<remark />
+	</Table>
+	<Table>
+		<id>13</id>
+		<firstpid>0</firstpid>
+		<pid>0</pid>
+		<pidname>蚂蚁集团</pidname>
+		<name>蚂蚁搬家</name>
+		<phone>4000288181</phone>
+		<address>成都科园南二路六号</address>
+		<firstid>0</firstid>
+		<firstname />
+		<secondaryidlist>0</secondaryidlist>
+		<secondarynamelist />
+		<type>经营</type>
+		<remark />
+	</Table>
+	<Table>
+		<id>14</id>
+		<firstpid>0</firstpid>
+		<pid>0</pid>
+		<pidname>蚂蚁集团</pidname>
+		<name>物业修造事业部</name>
+		<phone>4000268181</phone>
+		<address>成都科园南二路六号</address>
+		<firstid>0</firstid>
+		<firstname />
+		<secondaryidlist>0</secondaryidlist>
+		<secondarynamelist />
+		<type>经营</type>
+		<remark />
+	</Table>
+	<Table>
+		<id>15</id>
+		<firstpid>0</firstpid>
+		<pid>0</pid>
+		<pidname>蚂蚁集团</pidname>
+		<name>供应链商贸事业部</name>
+		<phone>4000208181</phone>
+		<address>成都科园南二路六号</address>
+		<firstid>0</firstid>
+		<firstname />
+		<secondaryidlist>0</secondaryidlist>
+		<secondarynamelist />
+		<type>经营</type>
+		<remark />
+	</Table>
+	<Table>
+		<id>16</id>
+		<firstpid>0</firstpid>
+		<pid>0</pid>
+		<pidname>蚂蚁集团</pidname>
+		<name>人力资源部</name>
+		<phone />
+		<address>成都科园南二路六号</address>
+		<firstid>0</firstid>
+		<firstname />
+		<secondaryidlist>0</secondaryidlist>
+		<secondarynamelist />
+		<type>职能</type>
+		<remark />
+	</Table>
+	<Table>
+		<id>17</id>
+		<firstpid>0</firstpid>
+		<pid>0</pid>
+		<pidname>蚂蚁集团</pidname>
+		<name>合作发展部</name>
+		<phone />
+		<address>成都科园南二路六号</address>
+		<firstid>0</firstid>
+		<firstname />
+		<secondaryidlist>0</secondaryidlist>
+		<secondarynamelist />
+		<type>经营</type>
+		<remark />
+	</Table>
+	<Table>
+		<id>18</id>
+		<firstpid>0</firstpid>
+		<pid>0</pid>
+		<pidname>蚂蚁集团</pidname>
+		<name>49号工作室</name>
+		<phone />
+		<address>成都创业路49号</address>
+		<firstid>0</firstid>
+		<firstname />
+		<secondaryidlist>0</secondaryidlist>
+		<secondarynamelist />
+		<type>职能</type>
+		<remark />
+	</Table>
+	<Table>
+		<id>19</id>
+		<firstpid>0</firstpid>
+		<pid>0</pid>
+		<pidname>蚂蚁集团</pidname>
+		<name>成运（总）司</name>
+		<phone />
+		<address>成都科园南二路六号</address>
+		<firstid>0</firstid>
+		<firstname />
+		<secondaryidlist>0</secondaryidlist>
+		<secondarynamelist />
+		<type>经营</type>
+		<remark />
+	</Table>
+	<Table>
+		<id>20</id>
+		<firstpid>0</firstpid>
+		<pid>2</pid>
+		<pidname>总裁办</pidname>
+		<name>回访防损处</name>
+		<phone />
+		<address>成都科园南二路六号</address>
+		<firstid>0</firstid>
+		<firstname />
+		<secondaryidlist>0</secondaryidlist>
+		<secondarynamelist />
+		<type>职能</type>
+		<remark />
+	</Table>
+	<Table>
+		<id>21</id>
+		<firstpid>0</firstpid>
+		<pid>2</pid>
+		<pidname>总裁办</pidname>
+		<name>装备安检处</name>
+		<phone />
+		<address>成都科园南二路六号</address>
+		<firstid>0</firstid>
+		<firstname />
+		<secondaryidlist>0</secondaryidlist>
+		<secondarynamelist />
+		<type>职能</type>
+		<remark />
+	</Table>
+	<Table>
+		<id>25</id>
+		<firstpid>0</firstpid>
+		<pid>0</pid>
+		<pidname>蚂蚁集团</pidname>
+		<name>搬装事业部</name>
+		<phone />
+		<address />
+		<firstid>0</firstid>
+		<firstname />
+		<secondaryidlist>0</secondaryidlist>
+		<secondarynamelist />
+		<type>经营</type>
+		<remark />
+	</Table>
+	<Table>
+		<id>26</id>
+		<firstpid>0</firstpid>
+		<pid>0</pid>
+		<pidname>蚂蚁集团</pidname>
+		<name>配送仓储事业部</name>
+		<phone />
+		<address />
+		<firstid>0</firstid>
+		<firstname />
+		<secondaryidlist>0</secondaryidlist>
+		<secondarynamelist />
+		<type>经营</type>
+		<remark />
+	</Table>
+	<Table>
+		<id>27</id>
+		<firstpid>0</firstpid>
+		<pid>16</pid>
+		<pidname>人力资源部</pidname>
+		<name>员工关系处</name>
+		<phone>68295176</phone>
+		<address />
+		<firstid>0</firstid>
+		<firstname />
+		<secondaryidlist>0</secondaryidlist>
+		<secondarynamelist />
+		<type>职能</type>
+		<remark />
+	</Table>
+	<Table>
+		<id>28</id>
+		<firstpid>0</firstpid>
+		<pid>16</pid>
+		<pidname>人力资源部</pidname>
+		<name>薪酬绩效处</name>
+		<phone>68295058</phone>
+		<address />
+		<firstid>0</firstid>
+		<firstname />
+		<secondaryidlist>0</secondaryidlist>
+		<secondarynamelist />
+		<type>职能</type>
+		<remark />
+	</Table>
+	<Table>
+		<id>29</id>
+		<firstpid>0</firstpid>
+		<pid>16</pid>
+		<pidname>人力资源部</pidname>
+		<name>招聘调配处</name>
+		<phone>68295060</phone>
+		<address />
+		<firstid>0</firstid>
+		<firstname />
+		<secondaryidlist>0</secondaryidlist>
+		<secondarynamelist />
+		<type>职能</type>
+		<remark />
+	</Table>
+	<Table>
+		<id>30</id>
+		<firstpid>0</firstpid>
+		<pid>0</pid>
+		<pidname>蚂蚁集团</pidname>
+		<name>招聘调配处</name>
+		<phone>68295060</phone>
+		<address />
+		<firstid>0</firstid>
+		<firstname />
+		<secondaryidlist>0</secondaryidlist>
+		<secondarynamelist />
+		<type>职能</type>
+		<remark />
+	</Table>
+	<Table>
+		<id>31</id>
+		<firstpid>0</firstpid>
+		<pid>16</pid>
+		<pidname>人力资源部</pidname>
+		<name>招聘调配处</name>
+		<phone>68295060</phone>
+		<address />
+		<firstid>0</firstid>
+		<firstname />
+		<secondaryidlist>0</secondaryidlist>
+		<secondarynamelist />
+		<type>职能</type>
+		<remark />
+	</Table>
+</NewDataSet>

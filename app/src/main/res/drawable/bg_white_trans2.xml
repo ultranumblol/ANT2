@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!-- 圆角框 -->
+     <corners  
+
+        />
+    <!-- 填充颜色 半透明白色 -->
+<solid android:color="#30ddddff"/>
+    <!-- 描边 -->
+	<!--<stroke
+        android:width="1px"
+        android:color="@color/gray"  
+        /> -->
+</shape> 

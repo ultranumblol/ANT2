@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NewDataSet>
+	<table>
+		<id>1</id>
+		<name>蚂蚁物流</name>
+		<phone>4000278181</phone>
+	</table>
+	<table>
+		<id>2</id>
+		<name>总裁办</name>
+		<phone>028-68295055</phone>
+	</table>	
+</NewDataSet>

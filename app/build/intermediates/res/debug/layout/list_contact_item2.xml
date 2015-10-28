@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <TextView
+        android:id="@+id/alpha2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#333333"
+        android:paddingLeft="13dip"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="#99CCFF"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/image_view2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/alpha2"
+        android:layout_marginRight="5.0dip"
+        />
+
+    <TextView
+        android:id="@+id/name2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/image_view"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="5.0dip"
+        android:layout_marginTop="1.0dip"
+        android:layout_toRightOf="@id/image_view2"
+        android:singleLine="true"
+
+        android:textColor="@color/white"
+        android:text="123"
+        android:textAppearance="?android:textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/number2"
+        android:text="1234567"
+        android:layout_below="@+id/name2"
+        android:textColor="@color/yellow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:layout_marginTop="3dip"
+        android:layout_marginLeft="21dip"
+        android:textAppearance="?android:textAppearanceSmall" />
+
+
+</RelativeLayout><!-- From: file:/C:/Users/qwerr/workspace/ANT2/app/src/main/res/layout/list_contact_item2.xml -->

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ant.contact.View.ReboundScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   
+    android:background="@drawable/bg111"
+    >
+   
+       
+       
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+    android:layout_marginTop="20dip"
+    android:background="@drawable/bg_white_trans"
+   >
+ 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="常用联系人"
+        android:textColor="@color/blue"
+        android:id="@+id/contacts_changyong_type"
+        android:layout_marginTop="10dip"
+        android:textSize="18dip"
+        android:layout_marginLeft="30dip"
+         />
+    <com.ant.contact.View.ScrollListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lv_contacts_changyong"
+        android:visibility="gone"
+        android:divider="@color/gray"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="10dip"
+        ></com.ant.contact.View.ScrollListView>
+    <View android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="7dip"
+        android:layout_marginRight="15dip"
+        android:background="@color/gray2"/>
+     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="近期联系人"
+         android:layout_marginLeft="30dip"
+        android:id="@+id/contacts_nearly_type"
+        android:layout_marginTop="8dip"
+         android:textColor="@color/blue"
+        android:textSize="18dip"
+         />
+     <View android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="7dip"
+        android:layout_marginRight="15dip"
+        android:background="@color/gray2"/>
+     <com.ant.contact.View.ScrollListView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lv_contacts_nearly"
+        android:visibility="visible"
+         android:divider="@color/gray"
+         android:dividerHeight="1px"
+         android:layout_marginLeft="20dip"
+        android:layout_marginRight="10dip"
+        ></com.ant.contact.View.ScrollListView>
+    
+</LinearLayout>
+   
+</com.ant.contact.View.ReboundScrollView>
+<!-- From: file:/C:/Users/qwerr/workspace/ANT2/app/src/main/res/layout/contacts2.xml -->
