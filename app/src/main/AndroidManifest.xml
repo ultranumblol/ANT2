@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.ant.contact.Activity.MainActivity"
+            android:name="com.ant.contact.Activity.StartActivity"
             android:label="@string/app_name" 
             android:launchMode="singleTask">
             <intent-filter>
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.ant.contact.Activity.ContactsActivity"></activity>
-        <activity android:name=".Activity.StartActivity"></activity>
+        <activity android:name=".Activity.MainActivity"></activity>
     </application>
 
     <uses-permission android:name="android.permission.READ_CALL_LOG" />

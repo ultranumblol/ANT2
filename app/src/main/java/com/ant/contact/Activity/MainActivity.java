@@ -1,6 +1,5 @@
 package com.ant.contact.Activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -19,9 +18,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ant.contact.R;
-import com.ant.contact.db.DatabaseHelper;
 import com.ant.contact.fragment.Fragment4;
 import com.ant.contact.fragment.Fragment6;
+import com.ant.contact.fragment.FragmentTest;
 
 import java.util.ArrayList;
 
@@ -32,7 +31,7 @@ public class MainActivity extends FragmentActivity {
 	private ViewPager m_vp;
 	private Fragment4 mFragment4;
 	private Fragment6 mfragment6;
-	private DatabaseHelper dbh ;
+    private FragmentTest mfragmentTest;
 	private ImageView imgbar1,imgbar2;
 	private LinearLayout bar1,bar2;
 	private TextView bartv1,bartv2;
@@ -45,8 +44,6 @@ public class MainActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
-		startActivity(new Intent(this,StartActivity.class));
-		dbh = new DatabaseHelper(this);
 		initView();
 	}
 	public void initView() {
@@ -59,9 +56,11 @@ public class MainActivity extends FragmentActivity {
 		m_vp = (ViewPager) findViewById(R.id.viewpager);
 		mfragment6 = new Fragment6();
 		mFragment4 = new Fragment4();
+        mfragmentTest = new FragmentTest();
 		fragmentList = new ArrayList<Fragment>();
 		fragmentList.add(mfragment6);
-		fragmentList.add(mFragment4);
+		//fragmentList.add(mFragment4);
+        fragmentList.add(mfragmentTest);
 		bar1.setOnClickListener(new onclickMainbar());
 		bar2.setOnClickListener(new onclickMainbar());
 		final MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(
@@ -122,11 +121,7 @@ public class MainActivity extends FragmentActivity {
 		public Fragment getItem(int arg0) {
 			return list.get(arg0);
 		}
-		@Override
-		public int getItemPosition(Object object) {
-			Log.i("xml","执行了方法-----------");
-			return POSITION_NONE;
-		}
+
 
 
 		@Override

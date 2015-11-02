@@ -1,6 +1,7 @@
 package com.ant.contact.Activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.ant.contact.R;
@@ -23,7 +24,8 @@ public class StartActivity extends Activity{
             @Override
             public void run() {
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(2200);
+                    startActivity(new Intent(StartActivity.this, MainActivity.class));
                     finish();
                 } catch (InterruptedException e) {
                     e.printStackTrace();

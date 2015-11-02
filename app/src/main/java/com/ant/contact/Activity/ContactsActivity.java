@@ -5,8 +5,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,8 +38,13 @@ import com.ant.contact.Util.OnDataFinishedListener;
 import com.ant.contact.Util.QuerXmlPeoData;
 import com.ant.contact.db.DatabaseHelper;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -66,35 +73,70 @@ public class ContactsActivity extends Activity{
 	}
 	//初始化查询方法
 	private void initquery(){
-		//QuerXmlData qData = new QuerXmlData();
 		Intent intent=getIntent();
-		int sid = intent.getIntExtra("sid", 1);//接受上个acitvity传来的sid
-		String title = intent.getStringExtra("title");
-		this.title.setText(title);
-		QuerXmlPeoData qData2 = new QuerXmlPeoData(sid);
-		qData2.setOnDataFinishedListener(new OnDataFinishedListener() {
+        final int sid = intent.getIntExtra("sid", 1);//接收上个acitvity传来的sid
+        String title = intent.getStringExtra("title");
+        this.title.setText(title);
 
-			@SuppressWarnings("unchecked")
-			@Override
-			public void onDataSuccessfully(Object data) {
-				peos=(List<Map<String, Object>>) data;
-				peos2=(List<Map<String, Object>>) data;
-				Log.i("xml", " 查询成功====peos数据："+peos.toString());
-				simpleAdapter = new SimpleAdapter
-						(ContactsActivity.this, peos, R.layout.list_contact_item,
-								new String[]{"name","phone","ranke"}, new int[]{R.id.name,R.id.number,R.id.rank});
-				list1.setAdapter(simpleAdapter);
 
-			}
+        peos=getInfo(getApplicationContext(),"huancun"+sid);
+        peos2=getInfo(getApplicationContext(),"huancun"+sid);
+        if (peos.size()!=0){
+            Log.i("xml", " 本地查询成功====peos数据：" + peos.toString());
+            Log.i("xml", " 本地查询成功====peos数据：" + peos.size()+"tiao");
+            simpleAdapter = new SimpleAdapter
+                    (ContactsActivity.this, peos, R.layout.list_contact_item,
+                            new String[]{"name", "phone", "ranke"}, new int[]{R.id.name, R.id.number, R.id.rank});
+            list1.setAdapter(simpleAdapter);
 
-			@Override
-			public void onDataFailed() {
-				// TODO Auto-generated method stub
+        }
+        else{
+            //联网异步查询联系人
+            QuerXmlPeoData qData2 = new QuerXmlPeoData(sid);
+            qData2.execute();
+            qData2.setOnDataFinishedListener(new OnDataFinishedListener() {
 
-			}
-		});
-		qData2.execute();
+                @SuppressWarnings("unchecked")
+                @Override
+                public void onDataSuccessfully(Object data) {
+                    //缓存数据，用sp保存
+                    List<Map<String, Object>> huancunpeos1 = new ArrayList<Map<String, Object>>();
+                    List<Map<String, Object>> huancunpeos2 = new ArrayList<Map<String, Object>>();
+                    huancunpeos1 =(List<Map<String, Object>>) data;
+                    huancunpeos2 =(List<Map<String, Object>>) data;
+                    saveInfo(getApplicationContext(), "huancun" + sid, huancunpeos1);
+                    saveInfo(getApplicationContext(), "huancun" + sid, huancunpeos2);
+
+
+                    peos = (List<Map<String, Object>>) data;
+                    peos2 = (List<Map<String, Object>>) data;
+                    Log.i("xml", " 联网异步查询成功====peos数据：" + peos.toString());
+                    simpleAdapter = new SimpleAdapter
+                            (ContactsActivity.this, peos, R.layout.list_contact_item,
+                                    new String[]{"name", "phone", "ranke"}, new int[]{R.id.name, R.id.number, R.id.rank});
+                    list1.setAdapter(simpleAdapter);
+
+                }
+
+                @Override
+                public void onDataFailed() {
+                    // TODO Auto-generated method stub
+
+                }
+            });
+
+        }
+
+
 	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		peos=null;
+		peos2=null;
+	}
+
 	//初始化界面
 	private void init() {
 		list1 = (ListView) findViewById(R.id.list_1);
@@ -166,36 +208,40 @@ public class ContactsActivity extends Activity{
 										   final int arg2, long arg3) {
 				final TextView name = (TextView) arg1.findViewById(R.id.name);
 				final TextView phone = (TextView) arg1.findViewById(R.id.number);
-				AlertDialog.Builder builder =new AlertDialog.Builder(ContactsActivity.this);
+				AlertDialog.Builder builder = new AlertDialog.Builder(ContactsActivity.this);
 				builder.setTitle("请选择");
 				//指定下拉列表的显示数据
-				final String[] types = {"添加到手机通讯录", "添加到常用联系人","发送短信"};
-				builder.setItems(types,new DialogInterface.OnClickListener(){
+				final String[] types = {"添加到手机通讯录", "添加到常用联系人", "发送短信"};
+				builder.setItems(types, new DialogInterface.OnClickListener() {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						String select = types[which];
-						if(select.equals("添加到手机通讯录")){
+						if (select.equals("添加到手机通讯录")) {
 							testInsert(name.getText().toString(), phone.getText().toString());
 							Toast.makeText(ContactsActivity.this, "添加成功!", Toast.LENGTH_LONG).show();
-						};
-						if(select.equals("添加到常用联系人")){
+						}
+						;
+						if (select.equals("添加到常用联系人")) {
 							insert(name.getText().toString(), phone.getText().toString());
 							Toast.makeText(ContactsActivity.this, "添加成功!", Toast.LENGTH_LONG).show();
-						};
-						if(select.equals("发送短信")){
-							String  num = phone.getText().toString();
-							Uri smsToUri = Uri.parse("smsto:"+num);
+						}
+						;
+						if (select.equals("发送短信")) {
+							String num = phone.getText().toString();
+							Uri smsToUri = Uri.parse("smsto:" + num);
 
 							Intent intent = new Intent(Intent.ACTION_SENDTO, smsToUri);
 
 							intent.putExtra("sms_body", "");
 
 							startActivity(intent);
-						};
+						}
+						;
 
 
-					}});
+					}
+				});
 				builder.show();
 				return false;
 			}
@@ -306,11 +352,11 @@ public class ContactsActivity extends Activity{
 	 */
 	private void getmDataSub(List<Map<String, Object>> constest,String data)
 	{
-		Log.i("xml","进去getmDataSub方法时peos"+peos.toString());
+		//Log.i("xml","进去getmDataSub方法时peos"+peos.toString());
 		ArrayList<Map<String, Object>> data2 = new ArrayList<Map<String, Object>>();
 		data2.clear();
 		int length = constest.size();
-		Log.i("xml","进去getmDataSub方法时peos2的长度为"+length);
+		//Log.i("xml","进去getmDataSub方法时peos2的长度为"+length);
 		for(int i = 0; i < length; i++){
 
 			if (constest.get(i).get("phone").toString().contains(data)||
@@ -319,14 +365,78 @@ public class ContactsActivity extends Activity{
 				item.put("name",peos2.get(i).get("name").toString());
 				item.put("phone", peos2.get(i).get("phone").toString());
 				data2.add(item);
-				Log.i("xml","getmDataSub方法的循环后peos2：："+constest.get(i).get("phone").toString());
+				//Log.i("xml","getmDataSub方法的循环后peos2：："+constest.get(i).get("phone").toString());
 			}
 		}
-		Log.i("xml","getmDataSub方法后peos"+constest.toString());
+		//Log.i("xml","getmDataSub方法后peos"+constest.toString());
+		//更新
 		simpleAdapter =new SimpleAdapter(ContactsActivity.this, data2, R.layout.list_contact_item,
 				new String[]{"name","phone"}, new int[]{R.id.name,R.id.number});
 		list1.setAdapter(simpleAdapter);
-		//更新
+
+	}
+	/**
+	 * 保存数据到sp
+	 * @param context
+	 * @param key
+	 * @param datas
+	 */
+	public void saveInfo(Context context, String key, List<Map<String, Object>> datas) {
+		JSONArray mJsonArray = new JSONArray();
+		for (int i = 0; i < datas.size(); i++) {
+			Map<String, Object> itemMap = datas.get(i);
+			Iterator<Map.Entry<String, Object>> iterator = itemMap.entrySet().iterator();
+
+			JSONObject object = new JSONObject();
+
+			while (iterator.hasNext()) {
+				Map.Entry<String, Object> entry = iterator.next();
+				try {
+					object.put(entry.getKey(), entry.getValue());
+				} catch (JSONException e) {
+
+				}
+			}
+			mJsonArray.put(object);
+		}
+
+		SharedPreferences sp = context.getSharedPreferences("finals", Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putString(key, mJsonArray.toString());
+		editor.commit();
+	}
+
+	/**
+	 * 从sp获取数据
+	 * @param context
+	 * @param key
+	 * @return
+	 */
+	public List<Map<String, Object>> getInfo(Context context, String key) {
+		List<Map<String, Object>> datas = new ArrayList<Map<String, Object>>();
+		SharedPreferences sp = context.getSharedPreferences("finals", Context.MODE_PRIVATE);
+		String result = sp.getString(key, "");
+		try {
+			JSONArray array = new JSONArray(result);
+			for (int i = 0; i < array.length(); i++) {
+				JSONObject itemObject = array.getJSONObject(i);
+				Map<String, Object> itemMap = new HashMap<String, Object>();
+				JSONArray names = itemObject.names();
+				if (names != null) {
+					for (int j = 0; j < names.length(); j++) {
+						String name = names.getString(j);
+						String value = itemObject.getString(name);
+						itemMap.put(name, value);
+					}
+				}
+				datas.add(itemMap);
+			}
+		} catch (JSONException e) {
+
+		}
+
+		return datas;
+
 	}
 
 

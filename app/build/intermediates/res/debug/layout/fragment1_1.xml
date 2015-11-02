@@ -16,25 +16,42 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical" >
-
-        <TextView android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="蚂蚁企业通讯录"
-            android:layout_marginTop="20dip"
-            android:textSize="22dip"
-            android:id="@+id/title2"
-            android:textColor="@color/yellow"
-            />
+            android:id="@+id/relatively1"
+            android:orientation="horizontal">
+
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="蚂蚁企业通讯录"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="20dip"
+                android:textSize="22dip"
+                android:id="@+id/title2"
+                android:textColor="@color/yellow"
+                />
+            <ImageView
+                android:layout_width="23dip"
+                android:layout_height="23dip"
+                android:src="@drawable/refresh"
+                android:id="@+id/refesh1"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="22dip"
+
+                />
+
+        </RelativeLayout>
         <com.ant.contact.View.ReboundScrollView
             android:layout_width="match_parent"
             android:scrollbars="none"
-            android:layout_marginTop="15dip"
+            android:layout_marginTop="10dip"
             android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-
             android:background="@drawable/bg_white_trans">
 
             <com.ant.contact.View.ScrollListView android:layout_width="match_parent"

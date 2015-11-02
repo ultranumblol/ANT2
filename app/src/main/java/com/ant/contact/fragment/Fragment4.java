@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ant.contact.R;
+import com.ant.contact.Util.DBManager;
 import com.ant.contact.View.ElasticScrollView;
 import com.ant.contact.db.DatabaseHelper;
 
@@ -30,24 +31,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 联系人
+ */
 public class Fragment4 extends Fragment{
 	//RefreshableView refreshableView;
 	ElasticScrollView elasticScrollView;
 	DatabaseHelper dbh ;
 	private TextView changyongtv,nearlytv;
 	private ListView changyonglv,nearlylv;
+	DBManager mdb;
 	ArrayList<Map<String, Object>> data1 = new ArrayList<Map<String, Object>>();
 	ArrayList<Map<String, Object>> data2 = new ArrayList<Map<String, Object>>();
 	SimpleAdapter sAdapter1,sAdapter2;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		//ViewGroup viewGroup = (ViewGroup) mMainView.getParent();
 		View view = inflater.inflate(R.layout.contacts2, null);
 		initdb(view);
 		init(view);
 		Log.i("xml", "fragment4-->onCreateView()");
-		
+
 		return view;
 	}
 	@Override
@@ -63,6 +67,7 @@ public class Fragment4 extends Fragment{
 
 	//初始化控件
 	private void init(View view) {
+		mdb=new DBManager(view.getContext());
 
 		changyonglv = (ListView) view. findViewById(R.id.lv_contacts_changyong);
 		nearlylv = (ListView) view.findViewById(R.id.lv_contacts_nearly);
@@ -72,22 +77,20 @@ public class Fragment4 extends Fragment{
 
 		changyongtv.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				int Flag = changyonglv.getVisibility();
-				if(Flag==View.VISIBLE){
-					changyonglv.setVisibility(View.GONE);
-
-				}
-				if(Flag==View.GONE){
-					data1.clear();
-					querydb();
-					sAdapter1.notifyDataSetChanged();
-					changyonglv.setVisibility(View.VISIBLE);
-				}
-
-			}
-		});
+            @Override
+            public void onClick(View v) {
+                int Flag = changyonglv.getVisibility();
+                if (Flag == View.VISIBLE) {
+                    changyonglv.setVisibility(View.GONE);
+                }
+                if (Flag == View.GONE) {
+                    data1.clear();
+                    querydb();
+                    sAdapter1.notifyDataSetChanged();
+                    changyonglv.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 		nearlytv.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -158,15 +161,7 @@ public class Fragment4 extends Fragment{
 
 
 	};
-	/*private void mgetdata() {
-		for (int i = 0; i < nums.length; i++) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("name", names[i]);
-			map.put("phone", nums[i]);
-			data.add(map);
 
-		};
-	}*/
 	//删除联系人操作
 	private void delete(String phone){
 		SQLiteDatabase db = dbh.getWritableDatabase();
@@ -234,7 +229,7 @@ public class Fragment4 extends Fragment{
 								long arg3) {
 			final TextView phone = (TextView) arg1.findViewById(R.id.number2);
 			final TextView name = (TextView) arg1.findViewById(R.id.name2);
-			insert2(name.getText().toString(),phone.getText().toString());
+			insert2(name.getText().toString(), phone.getText().toString());
 			Intent dialIntent = new Intent(Intent.ACTION_CALL, Uri
 					.parse("tel:" +phone.getText().toString() ));
 			startActivity(dialIntent);
