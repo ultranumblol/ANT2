@@ -1,18 +1,34 @@
 package com.ant.contact.fragment;
 
+import android.app.AlertDialog;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ant.contact.R;
+import com.ant.contact.db.DatabaseHelper;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -20,94 +36,261 @@ import java.util.Map;
  * 联系人
  */
 public class FragmentTest extends Fragment {
-    //定义两个List用来控制Group和Child中的String;
-
-    private List<String> groupArray;//组列表
-    private List<List<String>> childArray;//子列表
     private ExpandableListView expandableListView_one;
+    SimpleExpandableListAdapter adapter;
+    private TextView addgroup;
+    DatabaseHelper dbh ;
+    List<Map<String, String>> gruops;
+    List<List<Map<String, String>>> childs;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activvity_main, null);
-        groupArray = new ArrayList<String>();
-        childArray = new ArrayList<List<String>>();
+
         expandableListView_one = (ExpandableListView) view.findViewById(R.id.expandableListView);
-        //创建二个一级条目标题
-        Map<String, String> title_1 = new HashMap<String, String>();
-        Map<String, String> title_2 = new HashMap<String, String>();
-        Map<String, String> title_3 = new HashMap<String, String>();
-
-        title_1.put("group", "111111");
-        title_2.put("group", "222222");
-        title_3.put("group", "33333");
-        //创建一级条目容器
-        List<Map<String, String>> gruops = new ArrayList<Map<String, String>>();
-
-        gruops.add(title_1);
-        gruops.add(title_2);
-        gruops.add(title_3);
-        //创建二级条目内容
-
-        //内容一
-        Map<String, String> content_1 = new HashMap<String, String>();
-        Map<String, String> content_2 = new HashMap<String, String>();
-
-
-        content_1.put("child", "ANDROID");
-        content_2.put("child", "IOS");
-
-        List<Map<String, String>> childs_1 = new ArrayList<Map<String, String>>();
-        childs_1.add(content_1);
-        childs_1.add(content_2);
-
-        //内容二
-        Map<String, String> content_3 = new HashMap<String, String>();
-        Map<String, String> content_4 = new HashMap<String, String>();
-        Map<String, String> content_5 = new HashMap<String, String>();
-
-        content_3.put("child", "金钱");
-        content_4.put("child", "权力");
-        content_5.put("child", "女人");
-        List<Map<String, String>> childs_2 = new ArrayList<Map<String, String>>();
-        childs_2.add(content_3);
-        childs_2.add(content_4);
-        childs_2.add(content_5);
-        List<Map<String, String>> childs_3 = new ArrayList<Map<String, String>>();
-        childs_3.add(content_1);
-        childs_3.add(content_2);
-
-        //存放两个内容, 以便显示在列表中
-        List<List<Map<String, String>>> childs = new ArrayList<List<Map<String, String>>>();
-        childs.add(childs_1);
-        childs.add(childs_2);
-        childs.add(childs_3);
-        //创建ExpandableList的Adapter容器
-        SimpleExpandableListAdapter adapter = new SimpleExpandableListAdapter(
-                getActivity().getApplicationContext(), gruops, R.layout.layout_parent, new String[]{"group"}, new int[]{R.id.textGroup},
-                childs, R.layout.layout_children, new String[]{"child"}, new int[]{R.id.textChild}
-        );
-
+        addgroup = (TextView) view.findViewById(R.id.addgroup);
+        dbh = new DatabaseHelper(view.getContext());
+        initdata();
         //加入列表
         expandableListView_one.setAdapter(adapter);
-        expandableListView_one.setOnChildClickListener(listener);
+        addgroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final EditText inputServer = new EditText(getActivity().getApplicationContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity().getApplicationContext());
+                builder.setTitle("Server").setIcon(android.R.drawable.ic_dialog_info).setView(inputServer)
+                        .setNegativeButton("Cancel", null);
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
+                    public void onClick(DialogInterface dialog, int which) {
+                        inputServer.getText().toString();
+
+
+
+                    }
+                });
+                builder.show();
+
+
+                insertGroup("新建分组", (gruops.size() + 1) + "");
+                gruops =queryGroup();
+                childs = GroupContent(queryContent(), gruops.size());
+                Log.i("xml", "gruops.size()=======" + gruops.toString());
+                Log.i("xml", "gruops.size()=======" + (gruops.size() + 1));
+                adapter = new SimpleExpandableListAdapter(
+                        getActivity().getApplicationContext(), gruops, R.layout.layout_parent, new String[]{"gname"}, new int[]{R.id.textGroup},
+                        childs, R.layout.layout_children, new String[]{"name","phone"}, new int[]{R.id.textChild,R.id.textChild2}
+                );
+                expandableListView_one.setAdapter(adapter);
+                Toast.makeText(getActivity().getApplicationContext(),"shuaxin!",Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }
-
-    private ExpandableListView.OnChildClickListener listener = new ExpandableListView.OnChildClickListener() {
-        @Override
-        public boolean onChildClick(ExpandableListView parent, View v,
-                                    int groupPosition, int childPosition, long id) {
-            // TODO Auto-generated method stub
-            toast("点击了");
-            return false;
+    //初始化数据
+    private void initdata() {
+        gruops = new ArrayList<Map<String, String>>();
+        childs = new ArrayList<List<Map<String, String>>>();
+        gruops =queryGroup();
+        if(gruops.size()<1){
+            insertGroup("常用联系人", "1");
+            insertGroup("近期联系人", "2");
+            insertGroup("新建分组", "3");
+            insertContent("张三", "13328901234", "1");
+            insertContent("张三", "13328901234", "1");
+            insertContent("张三", "13328901234", "1");
+            insertContent("张三","13328901234","2");
+            insertContent("张三","13328901234","3");
         }
+        gruops =queryGroup();
+        childs = GroupContent(queryContent(),gruops.size());
+        Log.i("xml", "gruops.size()=======" + gruops.size());
 
-        private void toast(String str) {
-            Toast.makeText(getActivity(), str, Toast.LENGTH_LONG).show();
+        Log.i("xml", "groups=====" + gruops.toString());
+        Log.i("xml", "childs=====" + childs.toString());
+
+
+        //创建ExpandableList的Adapter容器
+        adapter = new SimpleExpandableListAdapter(
+                getActivity().getApplicationContext(), gruops, R.layout.layout_parent, new String[]{"gname"}, new int[]{R.id.textGroup},
+                childs, R.layout.layout_children, new String[]{"name","phone"}, new int[]{R.id.textChild,R.id.textChild2}
+        );
+
+
+    }
+
+
+
+    /**
+     * 插入分组数据
+     * @param gname
+     * @param pid
+     */
+    private void insertGroup(String gname,String pid){
+        SQLiteDatabase db = dbh.getWritableDatabase();
+        ContentValues cv = new ContentValues();//实例化一个cv 用来装数据
+        cv.put("pid", pid);
+        cv.put("gname", gname);
+        db.insert("fenzu", null, cv);//插入操作
+        db.close();
+
+    }
+    /**
+     * 插入联系人数据
+     * @param name
+     * @param pid
+     */
+    private void insertContent(String name,String phone,String pid){
+        SQLiteDatabase db = dbh.getWritableDatabase();
+        ContentValues cv = new ContentValues();//实例化一个cv 用来装数据
+        cv.put("pid", pid);
+        cv.put("name",name );
+        cv.put("phone",phone );
+        db.insert("content1", null, cv);//插入操作
+        db.close();
+
+    }
+    /**
+     * 查询数据库数据，分组
+     */
+    private List<Map<String, String>> queryGroup(){
+
+        SQLiteDatabase db = dbh.getWritableDatabase();
+        Cursor c =db.query("fenzu", null, null, null, null, null, null);
+        List<Map<String,String>> data = new ArrayList<Map<String, String>>();
+
+        if(c.moveToFirst()){//判断游标是否为空
+            for(int i = 0;i<c.getCount();i++){
+                c.moveToPosition(i);//移动到指定记录
+                String id = c.getString(c.getColumnIndex("pid"));
+                String gname = c.getString(c.getColumnIndex("gname"));
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("pid", id);
+
+                map.put("gname", gname);
+                data.add(map);
+
+            }
         }
+        Log.i("xml", "data的长度：=================" + data.size());
+        db.close();
+        return data;
     };
+    /**
+     * 查询数据库数据，分组
+     */
+    private List<Map<String, String>> queryContent(){
+        SQLiteDatabase db = dbh.getWritableDatabase();
+        Cursor c = db.query("content1", null, null, null, null, null, null);
+
+        List<Map<String,String>> data = new ArrayList<Map<String, String>>();
+        if(c.moveToFirst()){//判断游标是否为空
+            for(int i = 0;i<c.getCount();i++){
+                c.moveToPosition(i);//移动到指定记录
+                String pid = c.getString(c.getColumnIndex("pid"));
+                String name = c.getString(c.getColumnIndex("name"));
+                String phone = c.getString(c.getColumnIndex("phone"));
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("pid", pid);
+                map.put("phone",phone);
+                map.put("name", name);
+                data.add(map);
+            }
+        }
+        //Log.i("xml","diyicichaxun======"+data.size());
+        // Log.i("xml","diyicichaxun======"+data.toString());
+        db.close();
+        return data;
+    };
+    /**
+     * 重组联系人数据，按分组类型分组
+     */
+    private List<List<Map<String, String>>> GroupContent(List<Map<String, String>> data,int count){
+        List<List<Map<String,String>>>  childs2 = new ArrayList<List<Map<String, String>>>();
+        for (int i=1;i<=count;i++){
+            List<Map<String,String>> data2 = new ArrayList<Map<String, String>>();
+            for (int j = 0 ;j<data.size();j++){
+                int k = Integer.parseInt(data.get(j).get("pid").toString());
+                if (k==i){
+                    Map<String, String> map = new HashMap<String, String>();
+                    String name = data.get(j).get("name").toString();
+                    String phone = data.get(j).get("phone").toString();
+                    map.put("phone",phone);
+                    map.put("name", name);
+                    data2.add(map);
+                }
+            }
+            childs2.add(data2);
+
+        }
+
+        return childs2;
+    }
+    /**
+     * 保存数据到sp
+     * @param context
+     * @param key
+     * @param datas
+     */
+    public void saveInfo(Context context, String key, List<Map<String, Object>> datas) {
+        JSONArray mJsonArray = new JSONArray();
+        for (int i = 0; i < datas.size(); i++) {
+            Map<String, Object> itemMap = datas.get(i);
+            Iterator<Map.Entry<String, Object>> iterator = itemMap.entrySet().iterator();
+
+            JSONObject object = new JSONObject();
+
+            while (iterator.hasNext()) {
+                Map.Entry<String, Object> entry = iterator.next();
+                try {
+                    object.put(entry.getKey(), entry.getValue());
+                } catch (JSONException e) {
+
+                }
+            }
+            mJsonArray.put(object);
+        }
+
+        SharedPreferences sp = context.getSharedPreferences("finals", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(key, mJsonArray.toString());
+        editor.commit();
+    }
+
+    /**
+     * 从sp获取数据
+     * @param context
+     * @param key
+     * @return
+     */
+    public List<Map<String, Object>> getInfo(Context context, String key) {
+        List<Map<String, Object>> datas = new ArrayList<Map<String, Object>>();
+        SharedPreferences sp = context.getSharedPreferences("finals", Context.MODE_PRIVATE);
+        String result = sp.getString(key, "");
+        try {
+            JSONArray array = new JSONArray(result);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject itemObject = array.getJSONObject(i);
+                Map<String, Object> itemMap = new HashMap<String, Object>();
+                JSONArray names = itemObject.names();
+                if (names != null) {
+                    for (int j = 0; j < names.length(); j++) {
+                        String name = names.getString(j);
+                        String value = itemObject.getString(name);
+                        itemMap.put(name, value);
+                    }
+                }
+                datas.add(itemMap);
+            }
+        } catch (JSONException e) {
+
+        }
+
+        return datas;
+
+    }
+
 }
 
 
@@ -195,10 +378,10 @@ public class FragmentTest extends Fragment {
         nearlylv.setOnItemLongClickListener(new mnearlylongClick());
     }
     *//**
-         * 分类按钮点击事件监听
-         * @author qwerr
-         *
-         *//*
+ * 分类按钮点击事件监听
+ * @author qwerr
+ *
+ *//*
     private class typeonclick implements OnClickListener  {
 
         @Override
@@ -254,8 +437,8 @@ public class FragmentTest extends Fragment {
 
     }
     *//**
-         * 查询数据库数据，常用联系人
-         *//*
+ * 查询数据库数据，常用联系人
+ *//*
     private void querydb(){
         SQLiteDatabase db = dbh.getWritableDatabase();
         Cursor c =db.query("changyong", null, null, null, null, null, null);
@@ -274,8 +457,8 @@ public class FragmentTest extends Fragment {
 
     };
     *//**
-         * 查询数据库数据，最近联系人
-         *//*
+ * 查询数据库数据，最近联系人
+ *//*
     private void querydb2(){
         SQLiteDatabase db = dbh.getWritableDatabase();
         Cursor c =db.query("nearly", null, null, null, null, null, null);
@@ -345,10 +528,10 @@ public class FragmentTest extends Fragment {
             return true;
         }};
     *//**
-         * 插入数据到最近联系人
-         * @param name
-         * @param phone
-         *//*
+ * 插入数据到最近联系人
+ * @param name
+ * @param phone
+ *//*
     private void insert2(String name,String phone){
         SQLiteDatabase db = dbh.getWritableDatabase();
         ContentValues cv = new ContentValues();//实例化一个cv 用来装数据

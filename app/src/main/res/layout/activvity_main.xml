@@ -2,6 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_white_trans"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加分组"
+            android:id="@+id/addgroup"
+            android:textSize="20dp"
+
+            />
+    </LinearLayout>
     <ExpandableListView
         android:id ="@+id/expandableListView"
         android:layout_width ="fill_parent"

@@ -3,14 +3,24 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
-        android:id="@+id/textChild"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+    android:id="@+id/textChild"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="40dip"
+    android:paddingTop="10px"
+    android:paddingBottom="5px"
+    android:textSize="17sp"
+
+    android:textColor="@color/white"
+    android:text="No Data" />
+    <TextView
+        android:id="@+id/textChild2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="40dip"
-        android:paddingTop="10px"
         android:paddingBottom="10px"
-        android:textSize="16sp"
+        android:textSize="14sp"
 
         android:textColor="@color/yellow"
-        android:text="No Data" />
+        android:text="qqqqq" />
 </LinearLayout>
