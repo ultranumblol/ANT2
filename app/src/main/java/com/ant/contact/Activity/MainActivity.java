@@ -1,5 +1,6 @@
 package com.ant.contact.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -100,6 +101,24 @@ public class MainActivity extends FragmentActivity {
 			}
 		});
 	}
+
+    /**
+     * 获得联系人页面(contactsActivity)返回的 "该刷新了"信息，将该信息通过fragmentmanager的findfragmentbyid ，找到
+     * 联系人分组页面(fragmentTest),传递到该fragment的onActivityResult方法中，执行刷新操作
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String result = data.getExtras().getString("result");
+        //Log.i("xml", result + "111111111111111111111");
+        //Log.i("xml", fragmentList.get(1).getId() + "ididididididididi");
+        Fragment f = getSupportFragmentManager().findFragmentById(fragmentList.get(1).getId());
+        f.onActivityResult(requestCode, resultCode, data);
+    }
+
 	public class MyFragmentPagerAdapter extends FragmentPagerAdapter{
 		ArrayList<Fragment> list;
 		public FragmentManager fm;
@@ -107,7 +126,6 @@ public class MainActivity extends FragmentActivity {
 			super(fm);
 			this.fm = fm;
 			this.list = list;
-
 		}
 
 

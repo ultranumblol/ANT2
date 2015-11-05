@@ -25,6 +25,7 @@
         </activity>
         <activity android:name="com.ant.contact.Activity.ContactsActivity"></activity>
         <activity android:name=".Activity.MainActivity"></activity>
+        <activity android:name=".Activity.GroupManagerActivity"></activity>
     </application>
 
     <uses-permission android:name="android.permission.READ_CALL_LOG" />

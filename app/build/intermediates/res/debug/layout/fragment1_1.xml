@@ -24,23 +24,44 @@
 
             <TextView android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="蚂蚁企业通讯录"
+                android:text="组织机构"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="20dip"
                 android:textSize="22dip"
                 android:id="@+id/title2"
                 android:textColor="@color/yellow"
                 />
-            <ImageView
-                android:layout_width="23dip"
-                android:layout_height="23dip"
-                android:src="@drawable/refresh"
-                android:id="@+id/refesh1"
-                android:layout_alignParentRight="true"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/refesh2"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="22dip"
+                android:layout_alignParentRight="true"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="同步"
+                    android:textColor="@color/white"
+                    android:textSize="16dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    />
+                <ImageView
+                    android:layout_width="18dip"
+                    android:layout_height="18dip"
+                    android:src="@drawable/refresh"
+                    android:id="@+id/refesh1"
+                    android:layout_marginTop="3dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dip"
 
-                />
+                    />
+
+            </LinearLayout>
+
 
         </RelativeLayout>
         <com.ant.contact.View.ReboundScrollView

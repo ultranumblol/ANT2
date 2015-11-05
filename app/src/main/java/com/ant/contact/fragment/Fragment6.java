@@ -1,6 +1,8 @@
 package com.ant.contact.fragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,7 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -42,7 +44,7 @@ public class Fragment6 extends Fragment {
     private ListView mTree;
     private List<Map<String, Object>> constest;
     private TreeListViewAdapter mAdapter;
-    private ImageView reflesh;
+    private LinearLayout reflesh2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,25 +58,36 @@ public class Fragment6 extends Fragment {
     private void init(View view) {
         //mTree = (ListView) view.findViewById(R.id.id_tree);
         mTree = (ListView) view.findViewById(R.id.list_1_1);
-        reflesh = (ImageView) view.findViewById(R.id.refesh1);
-        reflesh.setOnClickListener(new View.OnClickListener() {
+        reflesh2= (LinearLayout) view.findViewById(R.id.refesh2);
+        reflesh2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                File file= new File("/data/data/"+getActivity().getPackageName().toString()+"/shared_prefs","finals.xml");
-                if(file.exists()){
-                    file.delete();
-                    Intent intent = getActivity().getIntent();
-                    getActivity().finish();
-                    startActivity(intent);
-                    Toast.makeText(getActivity().getApplicationContext(), "与服务器同布数据成功", Toast.LENGTH_LONG).show();
-                }else {
-                    Toast.makeText(getActivity().getApplicationContext(),"数据已经是最新！",Toast.LENGTH_SHORT).show();
 
-                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("同步").setMessage("是否同步数据？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        File file= new File("/data/data/"+getActivity().getPackageName().toString()+"/shared_prefs","finals.xml");
+                        if(file.exists()){
+                            file.delete();
+                            Intent intent = getActivity().getIntent();
+                            getActivity().finish();
+                            startActivity(intent);
+                            Toast.makeText(getActivity().getApplicationContext(), "同步成功！", Toast.LENGTH_LONG).show();
+                        }else {
+                            Toast.makeText(getActivity().getApplicationContext(),"数据已经是最新！",Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                }).setNegativeButton("取消",null).show();
+
             }
         });
+
         initDatas();
     }
+
+
 
     //初始化数据
     private void initDatas() {
@@ -120,11 +133,12 @@ public class Fragment6 extends Fragment {
                                     String tielename = node.getName();
 
                                     int setctorid = node.getId();
-                                    Intent intent = new Intent(getActivity().getApplicationContext(), ContactsActivity.class);
+                                    Intent intent = new Intent();
+                                    intent.setClass(getActivity(), ContactsActivity.class);
+
                                     intent.putExtra("sid", setctorid);
                                     intent.putExtra("title", tielename);
-                                    startActivity(intent);
-
+                                    getActivity().startActivityForResult(intent, 0);
                                 }
                             }
 
@@ -169,10 +183,10 @@ public class Fragment6 extends Fragment {
                             String tielename = node.getName();
 
                             int setctorid = node.getId();
-                            Intent intent = new Intent(getActivity().getApplicationContext(), ContactsActivity.class);
+                            Intent intent = new Intent(getActivity(), ContactsActivity.class);
                             intent.putExtra("sid", setctorid);
                             intent.putExtra("title", tielename);
-                            startActivity(intent);
+                            getActivity().startActivityForResult(intent, 0);
 
                         }
                     }

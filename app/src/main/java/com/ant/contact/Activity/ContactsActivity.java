@@ -42,6 +42,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -181,7 +182,13 @@ public class ContactsActivity extends Activity{
 
 			@Override
 			public void onClick(View v) {
-				finish();
+				//数据是使用Intent返回
+				Intent intent = new Intent();
+				//把返回数据存入Intent
+				intent.putExtra("result", "该刷新了");
+				//设置返回数据
+                setResult(RESULT_OK,intent);
+                ContactsActivity.this.finish();
 
 			}
 		});
@@ -193,8 +200,8 @@ public class ContactsActivity extends Activity{
 									long arg3) {
 				final TextView name = (TextView) arg1.findViewById(R.id.name);
 				final TextView phone = (TextView) arg1.findViewById(R.id.number);
-
-				insert2(name.getText().toString(), phone.getText().toString());
+                final TextView rank = (TextView) arg1.findViewById(R.id.rank);
+				insert2(name.getText().toString(), phone.getText().toString(),2+"",rank.getText().toString());
 				Intent dialIntent = new Intent(Intent.ACTION_CALL, Uri
 						.parse("tel:" + phone.getText().toString()));
 				startActivity(dialIntent);
@@ -208,6 +215,7 @@ public class ContactsActivity extends Activity{
 										   final int arg2, long arg3) {
 				final TextView name = (TextView) arg1.findViewById(R.id.name);
 				final TextView phone = (TextView) arg1.findViewById(R.id.number);
+                final TextView rank = (TextView) arg1.findViewById(R.id.rank);
 				AlertDialog.Builder builder = new AlertDialog.Builder(ContactsActivity.this);
 				builder.setTitle("请选择");
 				//指定下拉列表的显示数据
@@ -221,12 +229,12 @@ public class ContactsActivity extends Activity{
 							testInsert(name.getText().toString(), phone.getText().toString());
 							Toast.makeText(ContactsActivity.this, "添加成功!", Toast.LENGTH_LONG).show();
 						}
-						;
+
 						if (select.equals("添加到常用联系人")) {
-							insert(name.getText().toString(), phone.getText().toString());
+							insert(name.getText().toString(), phone.getText().toString(),1+"",rank.getText().toString());
 							Toast.makeText(ContactsActivity.this, "添加成功!", Toast.LENGTH_LONG).show();
 						}
-						;
+
 						if (select.equals("发送短信")) {
 							String num = phone.getText().toString();
 							Uri smsToUri = Uri.parse("smsto:" + num);
@@ -237,7 +245,7 @@ public class ContactsActivity extends Activity{
 
 							startActivity(intent);
 						}
-						;
+
 
 
 					}
@@ -263,12 +271,19 @@ public class ContactsActivity extends Activity{
 	 * @param name
 	 * @param phone
 	 */
-	private void insert(String name,String phone){
+	private void insert(String name,String phone,String pid,String rank){
+        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String date = sDateFormat.format(new java.util.Date());
+        Log.i("xml","当前时间=============："+date);
+
 		SQLiteDatabase db = dbh.getWritableDatabase();
 		ContentValues cv = new ContentValues();//实例化一个cv 用来装数据
 		cv.put("name", name);
 		cv.put("phone", phone);
-		db.insert("changyong", null, cv);//插入操作
+        cv.put("pid", pid);
+        cv.put("rank",rank);
+        cv.put("date",date);
+		db.insert("content1", null, cv);//插入操作
 		db.close();
 
 
@@ -308,12 +323,17 @@ public class ContactsActivity extends Activity{
 	 * @param name
 	 * @param phone
 	 */
-	private void insert2(String name,String phone){
+	private void insert2(String name,String phone,String pid,String rank){
+        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String date = sDateFormat.format(new java.util.Date());
 		SQLiteDatabase db = dbh.getWritableDatabase();
 		ContentValues cv = new ContentValues();//实例化一个cv 用来装数据
 		cv.put("name", name);
 		cv.put("phone", phone);
-		db.insert("nearly", null, cv);//插入操作
+		cv.put("pid",pid);
+        cv.put("rank",rank);
+        cv.put("date",date);
+		db.insert("content1", null, cv);//插入操作
 		db.close();
 
 	}

@@ -12,11 +12,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 	private static final int Version = 1; //数据库版本
 	private static final String FENZU_NAME = "fenzu";//分组名称表
 	private static final String CONTENT = "content";//联系人列表
-	private static final String PERSON_ID = "id";
-	private static final String GROUP_name = "gname";
-    private static final String PERSON_name = "name";
-	private static final String PERSON_phone = "phone";
-    private static final String PERSON_groupid = "pid";
 
 	public DatabaseHelper(Context context) {
 		super(context, Name, null, Version);
@@ -38,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 //                + " INTEGER primary key autoincrement, " + PERSON_name + " text, "+ PERSON_phone +" text);";
 //        db.execSQL(sql3);
         db.execSQL("CREATE TABLE IF NOT EXISTS fenzu (id integer primary key autoincrement, pid varchar(60),gname varchar(60))");
-        db.execSQL("CREATE TABLE content1 (id integer primary key autoincrement, pid varchar(60),name varchar(60), phone varchar(60))");
+        db.execSQL("CREATE TABLE content1 (id integer primary key autoincrement, pid varchar(60),name varchar(60), phone varchar(60),rank varchar(60),date varchar(60))");
 	}
 
 	@Override

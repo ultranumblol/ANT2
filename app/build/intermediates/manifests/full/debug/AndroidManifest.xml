@@ -33,6 +33,7 @@
         </activity>
         <activity android:name="com.ant.contact.Activity.ContactsActivity" />
         <activity android:name="com.ant.contact.Activity.MainActivity" />
+        <activity android:name="com.ant.contact.Activity.GroupManagerActivity" />
     </application>
 
 </manifest>

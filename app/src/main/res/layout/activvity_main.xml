@@ -2,26 +2,49 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dip"
-        android:orientation="horizontal"
-        android:background="@drawable/bg_white_trans"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="添加分组"
+            android:text="联系人"
+            android:textSize="22dip"
+            android:textColor="@color/yellow"
+            android:layout_centerInParent="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分组管理"
+            android:layout_centerVertical="true"
             android:id="@+id/addgroup"
-            android:textSize="20dp"
+            android:layout_marginRight="10dip"
+            android:textColor="@color/white"
+            android:layout_alignParentRight="true"
+            android:textSize="15dp"
 
             />
-    </LinearLayout>
-    <ExpandableListView
-        android:id ="@+id/expandableListView"
-        android:layout_width ="fill_parent"
-        android:layout_height ="wrap_content"
-        android:background="@drawable/bg_white_trans"
-        >
-    </ExpandableListView>
+        <ImageView
+            android:layout_width="15dip"
+            android:layout_height="15dip"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="73dip"
+            android:id="@+id/jiahao_img"
+            android:src="@drawable/label_confirm"/>
+    </RelativeLayout>
+
+        <ExpandableListView
+            android:id ="@+id/expandableListView"
+            android:layout_width ="fill_parent"
+            android:layout_height ="wrap_content"
+            android:background="@drawable/bg_white_trans"
+
+            >
+        </ExpandableListView>
+
+
+
 </LinearLayout>

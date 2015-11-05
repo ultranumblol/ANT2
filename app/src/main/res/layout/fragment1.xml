@@ -24,7 +24,7 @@
     android:layout_gravity="center_vertical"
     android:textColor="@color/white"
     android:id="@+id/back_1"
-    android:drawableLeft="@drawable/abc_ic_ab_back_holo_light"
+    android:drawableLeft="@drawable/abc_ic_ab_back_holo_light2"
     android:layout_marginLeft="10dip"
     />
    <TextView android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
          android:layout_gravity="center"
             android:textSize="20dip"
             android:id="@+id/title"
-            android:textColor="@color/white"
+            android:textColor="@color/yellow"
             />
       
   </FrameLayout>

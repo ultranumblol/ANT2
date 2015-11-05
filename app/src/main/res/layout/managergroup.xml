@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   android:orientation="vertical"
+   android:background="@drawable/bg111"
+     >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+  <FrameLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:layout_marginTop="20dip"
+   
+    >
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="添加分组"
+          android:layout_marginLeft="33dp"
+          android:layout_gravity="center_vertical"
+          android:id="@+id/addgroup"
+          android:textColor="@color/white"
+          android:textSize="15dp"
+
+          />
+      <ImageView
+          android:layout_width="15dip"
+          android:layout_height="15dip"
+          android:layout_gravity="center_vertical"
+          android:id="@+id/jiahao_img"
+          android:layout_marginLeft="15dp"
+          android:src="@drawable/jiahao"/>
+
+   <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分组管理"
+         android:layout_gravity="center"
+            android:textSize="20dip"
+            android:id="@+id/title"
+            android:textColor="@color/yellow"
+            />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="完成"
+          android:id="@+id/groupfinish"
+          android:textColor="@color/white"
+          android:layout_gravity="center|right"
+          android:layout_marginRight="15dp"
+          android:textSize="18dp"/>
+  </FrameLayout>
+
+
+</LinearLayout>
+<ListView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/groupMan_list"
+    android:layout_marginTop="8dp"
+    android:background="@drawable/bg_white_trans"
+    ></ListView>
+
+
+
+</LinearLayout>

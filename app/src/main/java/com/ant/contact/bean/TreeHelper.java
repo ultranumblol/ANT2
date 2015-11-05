@@ -189,10 +189,10 @@ public class TreeHelper
 	{
 		if (node.getChildren().size() > 0 && node.isExpand())
 		{
-			node.setIcon(R.drawable.tree_ex);
+			node.setIcon(R.drawable.tree_ex2);
 		} else if (node.getChildren().size() > 0 && !node.isExpand())
 		{
-			node.setIcon(R.drawable.tree_ec);
+			node.setIcon(R.drawable.tree_ec2);
 		} else
 			node.setIcon(-1);
 
