@@ -255,6 +255,18 @@ public class ContactsActivity extends Activity{
 			}
 		});
 	}
+
+	@Override
+	public void finish() {
+		//数据是使用Intent返回
+		Intent intent = new Intent();
+		//把返回数据存入Intent
+		intent.putExtra("result", "该刷新了");
+		//设置返回数据
+		setResult(RESULT_OK,intent);
+		super.finish();
+	}
+
 	//初始化数据库
 	private void initdb() {
 		dbh = new DatabaseHelper(this);

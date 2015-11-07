@@ -44,7 +44,7 @@ public class FragmentTest extends Fragment {
         addgroup = (TextView) view.findViewById(R.id.addgroup);
         dbh = new DatabaseHelper(view.getContext());
         initdata();
-        //加入列表
+        //添加按钮添加分组
         addgroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

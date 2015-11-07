@@ -1,13 +1,16 @@
 package com.ant.contact.Activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -40,6 +43,17 @@ public class GroupManagerActivity extends Activity{
         init();
     }
 
+    @Override
+    public void finish() {
+        //数据是使用Intent返回
+        Intent intent = new Intent();
+        //把返回数据存入Intent
+        intent.putExtra("result", "该刷新了");
+        //设置返回数据
+        setResult(RESULT_OK,intent);
+        super.finish();
+    }
+
     private void init() {
         mfinish = (TextView) findViewById(R.id.groupfinish);
         maddgroup = (TextView) findViewById(R.id.addgroup);
@@ -56,12 +70,47 @@ public class GroupManagerActivity extends Activity{
                 GroupManagerActivity.this.finish();
             }
         });
+        maddgroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final EditText inputServer = new EditText(GroupManagerActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(GroupManagerActivity.this);
+                builder.setTitle("请输入分组名称：").setView(inputServer)
+                        .setNegativeButton("取消", null);
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
+                    public void onClick(DialogInterface dialog, int which) {
+                        insertGroup(inputServer.getText().toString(), (data1.size() + 1) + "");
+                        flush();
+
+                    }
+                });
+                builder.show();
+            }
+        });
+        flush();
+    }
+    private void flush(){
         data1 = new ArrayList<Map<String, Object>>();
         data1=queryGroup();
-        Log.i("xml","data10000000000000:"+data1.toString());
-        grouplist.setAdapter( new SimpleAdapter(getApplicationContext(),data1,R.layout.layout_parent,
+        //Log.i("xml", "data10000000000000:" + data1.toString());
+        grouplist.setAdapter(new SimpleAdapter(getApplicationContext(), data1, R.layout.layout_parent,
                 new String[]{"gname"}, new int[]{R.id.textGroup}));
+
+    }
+    /**
+     * 插入分组数据
+     * @param gname
+     * @param pid
+     */
+    private void insertGroup(String gname,String pid){
+        SQLiteDatabase db = dbh.getWritableDatabase();
+        ContentValues cv = new ContentValues();//实例化一个cv 用来装数据
+        cv.put("pid", pid);
+        cv.put("gname", gname);
+        db.insert("fenzu", null, cv);//插入操作
+        db.close();
+
     }
     /**
      * 查询数据库数据，分组
