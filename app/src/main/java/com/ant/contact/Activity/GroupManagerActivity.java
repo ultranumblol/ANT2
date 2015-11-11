@@ -8,14 +8,18 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ant.contact.R;
+import com.ant.contact.adapter.GroupManagerAdapter;
 import com.ant.contact.db.DatabaseHelper;
 
 import java.util.ArrayList;
@@ -33,6 +37,7 @@ public class GroupManagerActivity extends Activity{
     List<Map<String, Object>> data1 = new ArrayList<Map<String, Object>>();
     private TextView maddgroup;
     private ListView grouplist;
+    GroupManagerAdapter gpadapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +55,7 @@ public class GroupManagerActivity extends Activity{
         //把返回数据存入Intent
         intent.putExtra("result", "该刷新了");
         //设置返回数据
-        setResult(RESULT_OK,intent);
+        setResult(RESULT_OK, intent);
         super.finish();
     }
 
@@ -58,6 +63,36 @@ public class GroupManagerActivity extends Activity{
         mfinish = (TextView) findViewById(R.id.groupfinish);
         maddgroup = (TextView) findViewById(R.id.addgroup);
         grouplist = (ListView) findViewById(R.id.groupMan_list);
+        grouplist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                TextView pidtv = (TextView) view.findViewById(R.id.gmpid);
+                final String pid = pidtv.getText().toString();
+
+                new AlertDialog.Builder(GroupManagerActivity.this)
+
+                        .setTitle("删除")
+
+                        .setMessage("是否删除该分组？")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (pid.equals("1")||pid.equals("2")){
+                                    Toast.makeText(getApplicationContext(),"默认分组不能删除！",Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+
+                                    deletecontent(pid);// 删除操作
+                                    flush();
+                                }
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+
+
+                        .show();
+            }
+        });
         mfinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +115,8 @@ public class GroupManagerActivity extends Activity{
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
-                        insertGroup(inputServer.getText().toString(), (data1.size() + 1) + "");
+                        int num=(int)(1000*Math.random())+2;
+                        insertGroup(inputServer.getText().toString(), num + "");
                         flush();
 
                     }
@@ -93,9 +129,11 @@ public class GroupManagerActivity extends Activity{
     private void flush(){
         data1 = new ArrayList<Map<String, Object>>();
         data1=queryGroup();
-        //Log.i("xml", "data10000000000000:" + data1.toString());
-        grouplist.setAdapter(new SimpleAdapter(getApplicationContext(), data1, R.layout.layout_parent,
-                new String[]{"gname"}, new int[]{R.id.textGroup}));
+        Log.i("xml", "data10000000000000:" + data1.toString());
+        gpadapter = new GroupManagerAdapter(data1,GroupManagerActivity.this);
+        //grouplist.setAdapter(gpadapter);
+        grouplist.setAdapter(new SimpleAdapter(getApplicationContext(), data1, R.layout.layout_parent2,
+                new String[]{"gname", "pid"}, new int[]{R.id.mangroup_name, R.id.gmpid}));
 
     }
     /**
@@ -112,11 +150,27 @@ public class GroupManagerActivity extends Activity{
         db.close();
 
     }
+
+    /**
+     * 删除联系人
+     * @param pid
+     */
+    private void deletecontent(String pid){
+        SQLiteDatabase db = dbh.getWritableDatabase();
+        String sql2 ="delete from content1 where pid =?";
+        String sql3 ="delete from fenzu where pid =?";
+        String[] bindArgs = new String[]{pid};
+        db.execSQL(sql2, bindArgs);
+        db.execSQL(sql3, bindArgs);
+        sql2= null;
+        sql3=null;
+        db.close();
+
+    }
     /**
      * 查询数据库数据，分组
      */
     private List<Map<String, Object>> queryGroup(){
-
         SQLiteDatabase db = dbh.getWritableDatabase();
         Cursor c =db.query("fenzu", null, null, null, null, null, null);
         List<Map<String,Object>> data = new ArrayList<Map<String, Object>>();
@@ -125,8 +179,10 @@ public class GroupManagerActivity extends Activity{
             for(int i = 0;i<c.getCount();i++){
                 c.moveToPosition(i);//移动到指定记录
                 String gname = c.getString(c.getColumnIndex("gname"));
+                String pid = c.getString(c.getColumnIndex("pid"));
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("gname", gname);
+                map.put("pid",pid);
                 data.add(map);
 
             }

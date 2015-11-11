@@ -19,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ant.contact.R;
-import com.ant.contact.fragment.Fragment4;
 import com.ant.contact.fragment.Fragment6;
 import com.ant.contact.fragment.FragmentTest;
 
@@ -30,13 +29,12 @@ import static com.ant.contact.R.color.white;
 
 public class MainActivity extends FragmentActivity {
 	private ViewPager m_vp;
-	private Fragment4 mFragment4;
 	private Fragment6 mfragment6;
     private FragmentTest mfragmentTest;
 	private ImageView imgbar1,imgbar2;
 	private LinearLayout bar1,bar2;
 	private TextView bartv1,bartv2;
-	private int lcurmainMaskImageId = R.id.bar1;// 当前选中的导航栏图标 默认第一个
+	//private int lcurmainMaskImageId = R.id.bar1;// 当前选中的导航栏图标 默认第一个
 	FragmentManager fm;
 	// 页面列表
 	private ArrayList<Fragment> fragmentList;
@@ -56,14 +54,13 @@ public class MainActivity extends FragmentActivity {
 		imgbar2= (ImageView) findViewById(R.id.mainbar_img2);
 		m_vp = (ViewPager) findViewById(R.id.viewpager);
 		mfragment6 = new Fragment6();
-		mFragment4 = new Fragment4();
         mfragmentTest = new FragmentTest();
 		fragmentList = new ArrayList<Fragment>();
 		fragmentList.add(mfragment6);
 		//fragmentList.add(mFragment4);
         fragmentList.add(mfragmentTest);
-		bar1.setOnClickListener(new onclickMainbar());
-		bar2.setOnClickListener(new onclickMainbar());
+//		bar1.setOnClickListener(new onclickMainbar());
+//		bar2.setOnClickListener(new onclickMainbar());
 		final MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(
 				getSupportFragmentManager(), fragmentList);
 		m_vp.setAdapter(adapter);
@@ -79,7 +76,7 @@ public class MainActivity extends FragmentActivity {
 			@Override
 			public void onPageSelected(int position) {
 				if (position==0){
-					lcurmainMaskImageId=R.id.bar1;
+					//lcurmainMaskImageId=R.id.bar1;
 					imgbar1.setImageResource(R.drawable.main_tab_item_home_focus);
 					imgbar2.setImageResource(R.drawable.main_tab_item_user_normal);
 					bartv1.setTextColor(getResources().getColor(white));
@@ -87,7 +84,7 @@ public class MainActivity extends FragmentActivity {
 
 				}
 				if (position==1){
-					lcurmainMaskImageId=R.id.bar2;
+					//lcurmainMaskImageId=R.id.bar2;
 					imgbar1.setImageResource(R.drawable.main_tab_item_home_normal);
 					imgbar2.setImageResource(R.drawable.main_tab_item_user_focus);
 					bartv1.setTextColor(getResources().getColor(gray));
@@ -182,13 +179,13 @@ public class MainActivity extends FragmentActivity {
 		@Override
 		public void onClick(View v) {
 			int id = v.getId();
-			if(lcurmainMaskImageId==id){// 判断当前点击的view id 是否与刚才点的 id 一致
+			/*if(lcurmainMaskImageId==id){// 判断当前点击的view id 是否与刚才点的 id 一致
 
 				return;
-			}
+			}*/
 			switch (id){
 				case R.id.bar1:
-					lcurmainMaskImageId=R.id.bar1;
+					//lcurmainMaskImageId=R.id.bar1;
 					imgbar1.setImageResource(R.drawable.main_tab_item_home_focus);
 					imgbar2.setImageResource(R.drawable.main_tab_item_user_normal);
 					m_vp.setCurrentItem(0);
@@ -196,7 +193,7 @@ public class MainActivity extends FragmentActivity {
 					bartv2.setTextColor(getResources().getColor(gray));
 					break;
 				case R.id.bar2:
-					lcurmainMaskImageId=R.id.bar2;
+					//lcurmainMaskImageId=R.id.bar2;
 					imgbar1.setImageResource(R.drawable.main_tab_item_home_normal);
 					imgbar2.setImageResource(R.drawable.main_tab_item_user_focus);
 					m_vp.setCurrentItem(1);
@@ -208,6 +205,36 @@ public class MainActivity extends FragmentActivity {
 			}
 
 		}
+	}
+	public void BaronClick (View view){
+		int id = view.getId();
+		/*if(lcurmainMaskImageId==id){// 判断当前点击的view id 是否与刚才点的 id 一致
+
+			return;
+		}*/
+		switch (id){
+			case R.id.bar1:
+				//lcurmainMaskImageId=R.id.bar1;
+				imgbar1.setImageResource(R.drawable.main_tab_item_home_focus);
+				imgbar2.setImageResource(R.drawable.main_tab_item_user_normal);
+				m_vp.setCurrentItem(0);
+                Log.i("xml","111111");
+				bartv1.setTextColor(getResources().getColor(white));
+				bartv2.setTextColor(getResources().getColor(gray));
+				break;
+			case R.id.bar2:
+				//lcurmainMaskImageId=R.id.bar2;
+				imgbar1.setImageResource(R.drawable.main_tab_item_home_normal);
+				imgbar2.setImageResource(R.drawable.main_tab_item_user_focus);
+				m_vp.setCurrentItem(1);
+               Log.i("xml", "2222222");
+				bartv1.setTextColor(getResources().getColor(gray));
+				bartv2.setTextColor(getResources().getColor(white));
+				break;
+			default:
+				break;
+		}
+
 	}
 	//翻页动画1
 	public class DepthPageTransformer implements PageTransformer {

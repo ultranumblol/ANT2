@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
@@ -146,6 +147,9 @@ public class ContactsActivity extends Activity{
 		//搜索功能
 		ivDeleteText = (ImageView)findViewById(R.id.ivDeleteText);
 		etSearch = (EditText)findViewById(R.id.etSearch);
+        String[] types2 = {"添加到手机通讯录", "添加到常用联系人", "发送短信"};
+        Log.i("xml","types2types2types2types2types2"+types2.toString());
+
 
 		ivDeleteText.setOnClickListener(new OnClickListener() {
 
@@ -201,10 +205,12 @@ public class ContactsActivity extends Activity{
 				final TextView name = (TextView) arg1.findViewById(R.id.name);
 				final TextView phone = (TextView) arg1.findViewById(R.id.number);
                 final TextView rank = (TextView) arg1.findViewById(R.id.rank);
+				//添加数据到数据库最近联系人
 				insert2(name.getText().toString(), phone.getText().toString(),2+"",rank.getText().toString());
 				Intent dialIntent = new Intent(Intent.ACTION_CALL, Uri
 						.parse("tel:" + phone.getText().toString()));
 				startActivity(dialIntent);
+
 			}
 		});
 		//长按dialog监听
@@ -219,6 +225,7 @@ public class ContactsActivity extends Activity{
 				AlertDialog.Builder builder = new AlertDialog.Builder(ContactsActivity.this);
 				builder.setTitle("请选择");
 				//指定下拉列表的显示数据
+
 				final String[] types = {"添加到手机通讯录", "添加到常用联系人", "发送短信"};
 				builder.setItems(types, new DialogInterface.OnClickListener() {
 
@@ -231,6 +238,7 @@ public class ContactsActivity extends Activity{
 						}
 
 						if (select.equals("添加到常用联系人")) {
+							//添加数据到数据库常用联系人
 							insert(name.getText().toString(), phone.getText().toString(),1+"",rank.getText().toString());
 							Toast.makeText(ContactsActivity.this, "添加成功!", Toast.LENGTH_LONG).show();
 						}
@@ -251,7 +259,7 @@ public class ContactsActivity extends Activity{
 					}
 				});
 				builder.show();
-				return false;
+				return true;
 			}
 		});
 	}
@@ -286,6 +294,7 @@ public class ContactsActivity extends Activity{
 	private void insert(String name,String phone,String pid,String rank){
         SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String date = sDateFormat.format(new java.util.Date());
+		date = null;
         Log.i("xml","当前时间=============："+date);
 
 		SQLiteDatabase db = dbh.getWritableDatabase();
@@ -363,6 +372,29 @@ public class ContactsActivity extends Activity{
 		db.close();
 
 	}
+    /**
+     * 查询数据库数据，分组
+     */
+    private List<Map<String, Object>> queryGroup(){
+        SQLiteDatabase db = dbh.getWritableDatabase();
+        Cursor c =db.query("fenzu", null, null, null, null, null, null);
+        List<Map<String,Object>> data = new ArrayList<Map<String, Object>>();
+
+        if(c.moveToFirst()){//判断游标是否为空
+            for(int i = 0;i<c.getCount();i++){
+                c.moveToPosition(i);//移动到指定记录
+                String gname = c.getString(c.getColumnIndex("gname"));
+                String pid = c.getString(c.getColumnIndex("pid"));
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("gname", gname);
+                map.put("pid",pid);
+                data.add(map);
+
+            }
+        }
+        db.close();
+        return data;
+    }
 	/**
 	 * 删除表3所有数据
 	 * @param name

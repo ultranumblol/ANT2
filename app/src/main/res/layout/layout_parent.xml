@@ -6,12 +6,12 @@
         android:id="@+id/textGroup"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:paddingLeft="40px"
+        android:paddingLeft="30px"
         android:paddingTop="10px"
         android:paddingBottom="10px"
         android:textSize="18sp"
         android:text="No data"
-        android:layout_marginLeft="20dip"
+        android:layout_marginLeft="10dip"
         android:textColor="@color/blue"
         ></TextView>
 
@@ -20,5 +20,6 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         android:text="parent"
+        
         android:id="@+id/textGroup_hide"/>
 </LinearLayout>

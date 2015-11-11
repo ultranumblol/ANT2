@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -54,34 +56,63 @@ public class Fragment6 extends Fragment {
         init(view);
         return view;
     }
-
+    /**
+     * 判断网络状态
+     * @param context
+     * @return
+     */
+    public static boolean checkNetWorkStatus(Context context){
+        boolean result;
+        ConnectivityManager cm=(ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netinfo = cm.getActiveNetworkInfo();
+        if ( netinfo !=null && netinfo.isConnected() ) {
+            result=true;
+            Log.i("xml", "The net was connected");
+        }else{
+            result=false;
+            Log.i("xml", "The net was bad!");
+        }
+        return result;
+    }
     private void init(View view) {
         //mTree = (ListView) view.findViewById(R.id.id_tree);
         mTree = (ListView) view.findViewById(R.id.list_1_1);
         reflesh2= (LinearLayout) view.findViewById(R.id.refesh2);
+
+
+
         reflesh2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean net =false;
+                net = checkNetWorkStatus(getActivity());
+                if (net==false){
+                    Toast.makeText(getActivity(),"没有网络，请检查网络！",Toast.LENGTH_LONG).show();
+                }
+                else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("同步").setMessage("是否从服务器同步数据？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            File file= new File("/data/data/"+getActivity().getPackageName().toString()+"/shared_prefs","finals.xml");
+                            if(file.exists()){
+                                file.delete();
+                                Intent intent = getActivity().getIntent();
+                                getActivity().finish();
+                                startActivity(intent);
+                                Toast.makeText(getActivity().getApplicationContext(), "同步成功！", Toast.LENGTH_LONG).show();
+                            }else {
+                                Toast.makeText(getActivity().getApplicationContext(),"数据已经是最新！",Toast.LENGTH_SHORT).show();
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("同步").setMessage("是否同步数据？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        File file= new File("/data/data/"+getActivity().getPackageName().toString()+"/shared_prefs","finals.xml");
-                        if(file.exists()){
-                            file.delete();
-                            Intent intent = getActivity().getIntent();
-                            getActivity().finish();
-                            startActivity(intent);
-                            Toast.makeText(getActivity().getApplicationContext(), "同步成功！", Toast.LENGTH_LONG).show();
-                        }else {
-                            Toast.makeText(getActivity().getApplicationContext(),"数据已经是最新！",Toast.LENGTH_SHORT).show();
-
+                            }
                         }
-                    }
-                }).setNegativeButton("取消",null).show();
+                    }).setNegativeButton("取消",null).show();
 
-            }
+                }
+
+                }
+
+
         });
 
         initDatas();

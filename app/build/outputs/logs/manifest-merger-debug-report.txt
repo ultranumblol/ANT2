@@ -83,7 +83,11 @@ uses-permission#android.permission.INTERNET
 ADDED from AndroidManifest.xml:36:5
 	android:name
 		ADDED from AndroidManifest.xml:36:22
-uses-permission#android.permission.CALL_PHONE
-ADDED from AndroidManifest.xml:37:5
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from AndroidManifest.xml:38:5
 	android:name
-		ADDED from AndroidManifest.xml:37:22
+		ADDED from AndroidManifest.xml:38:22
+uses-permission#android.permission.CALL_PHONE
+ADDED from AndroidManifest.xml:39:5
+	android:name
+		ADDED from AndroidManifest.xml:39:22

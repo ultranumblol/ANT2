@@ -24,8 +24,9 @@
     android:layout_gravity="center_vertical"
     android:textColor="@color/white"
     android:id="@+id/back_1"
+       android:textSize="15dp"
     android:drawableLeft="@drawable/abc_ic_ab_back_holo_light2"
-    android:layout_marginLeft="10dip"
+    android:layout_marginLeft="13dip"
     />
    <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,7 +55,7 @@
 		        	android:background="@drawable/search_frame"
 		        	android:layout_marginRight="10dp"
 		        	android:paddingLeft="32dp"
-		        	android:textSize="13sp"
+		        	android:textSize="16sp"
 		        	android:hint="Searching..."/>
 		    	
 		    	<ImageView android:id="@+id/ivDeleteText"
