@@ -5,16 +5,16 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Collections;
 /**
- * Ç©ÃûÉú³ÉÆ÷
+ * ç­¾åç”Ÿæˆå™¨
  * @author qwerr
  *
  */
 public class SignMaker {
 	/**
-	 * »ñµÃ¼ÓÃÜµÄÇ©Ãû
-	 * @param name ´«ÈëµÄÓÃ»§Ãû£¬¸ñÊ½£ºusername=xxx£»
-	 * @param passwd ´«ÈëµÄÃÜÂë£¬¸ñÊ½£ºpassword=xxx£»
-	 * @return  ·µ»Ømd5¼ÓÃÜµÄÇ©Ãû
+	 * è·å¾—åŠ å¯†çš„ç­¾å
+	 * @param name ä¼ å…¥çš„ç”¨æˆ·åï¼Œæ ¼å¼ï¼šusername=xxxï¼›
+	 * @param passwd ä¼ å…¥çš„å¯†ç ï¼Œæ ¼å¼ï¼špassword=xxxï¼›
+	 * @return  è¿”å›md5åŠ å¯†çš„ç­¾å
 	 */
 	public String getsign(String name,String passwd,String setctorid){
 		MD5Util md5Util = new MD5Util();
@@ -28,21 +28,21 @@ public class SignMaker {
 			pass.add(passwd);
 			pass.add(setctorid);
 			//Log.i("xml", "2222222222"+pass.toString());
-			
+
 		}
 		Log.i("xml", "==========="+pass.toString());
-		Collections.sort(pass);//¶ÔÊı×éÀïµÄÔªËØ°´Ê××ÖÄ¸ÅÅĞò		
-	    	     String result = ""; 
-	    	     String seprater = "&"; 
-	    	     if (pass.size()==2) {
-	    	    	 result=pass.get(0)+seprater+pass.get(1); 	     					
-				}if(pass.size()==3) {
-					result=pass.get(0)+seprater+pass.get(1)+seprater+pass.get(2); 
-				}
+		Collections.sort(pass);//å¯¹æ•°ç»„é‡Œçš„å…ƒç´ æŒ‰é¦–å­—æ¯æ’åº		
+		String result = "";
+		String seprater = "&";
+		if (pass.size()==2) {
+			result=pass.get(0)+seprater+pass.get(1);
+		}if(pass.size()==3) {
+			result=pass.get(0)+seprater+pass.get(1)+seprater+pass.get(2);
+		}
 		String sign1=md5Util.MD5(result);
-		Log.i("xml","¼ÓÃÜÄÚÈİ£º"+result +"¼ÓÃÜºó"+sign1);	
+		Log.i("xml","åŠ å¯†å†…å®¹ï¼š"+result +"åŠ å¯†å"+sign1);
 		return sign1;
-		
-		
+
+
 	}
 }

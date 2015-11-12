@@ -3,6 +3,7 @@ package com.ant.contact.Activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.ant.contact.R;
+import com.umeng.update.UmengUpdateAgent;
 
 /**
  * Created by qwerr on 2015/10/23.
@@ -20,7 +22,7 @@ public class StartActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start);
-
+        UmengUpdateAgent.update(this);
         init();
         net=checkNetWorkStatus(getApplicationContext());
         if(net==false){
@@ -50,17 +52,40 @@ public class StartActivity extends Activity{
     }
 
     private void init() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(2200);
-                    startActivity(new Intent(StartActivity.this, MainActivity.class));
-                    finish();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+        String logininfo = getsp();
+        if (logininfo.equals("true")){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(2200);
+                        startActivity(new Intent(StartActivity.this, MainActivity.class));
+                        finish();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        }).start();
+            }).start();
+        }
+        else{
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(2200);
+                        startActivity(new Intent(StartActivity.this, LoginActivity.class));
+                        finish();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+        }
+    }
+    private String getsp(){
+        SharedPreferences preferences = getSharedPreferences("autologin", Context.MODE_PRIVATE);
+        String flag = preferences.getString("autologin","false");
+        return flag;
     }
 }

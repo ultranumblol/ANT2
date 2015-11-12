@@ -7,7 +7,7 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/ant/contact/Util/MD5Util.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/ant/contact/Util/QuerXmlData.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/ant/contact/Util/QuerXmlPeoData.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ant/contact/Util/SignMaker.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ant/contact/Util/SignMaker.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/ant/contact/Util/XmlInputStream.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/ant/contact/View/RefreshableView.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/ant/contact/bean/Node.java" charset="GBK" />

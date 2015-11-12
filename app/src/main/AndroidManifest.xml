@@ -13,6 +13,8 @@
         android:icon="@drawable/bg06"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <meta-data android:value="5643fecd67e58ef2af00048a" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/>
         <activity
             android:name="com.ant.contact.Activity.StartActivity"
             android:label="@string/app_name" 
@@ -23,11 +25,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--友盟-->
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService" >
+        </service>
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+
+
         <activity android:name="com.ant.contact.Activity.ContactsActivity"></activity>
         <activity android:name=".Activity.MainActivity"></activity>
         <activity android:name=".Activity.GroupManagerActivity"></activity>
+        <activity android:name=".Activity.LoginActivity"></activity>
     </application>
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />

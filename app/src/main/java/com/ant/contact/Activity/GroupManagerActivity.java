@@ -126,6 +126,7 @@ public class GroupManagerActivity extends Activity{
         });
         flush();
     }
+    //刷新list
     private void flush(){
         data1 = new ArrayList<Map<String, Object>>();
         data1=queryGroup();
