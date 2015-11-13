@@ -67,8 +67,9 @@ public class GroupManagerActivity extends Activity{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 TextView pidtv = (TextView) view.findViewById(R.id.gmpid);
+                TextView idtv = (TextView) view.findViewById(R.id.gmid);
                 final String pid = pidtv.getText().toString();
-
+                final String gid = idtv.getText().toString();
                 new AlertDialog.Builder(GroupManagerActivity.this)
 
                         .setTitle("删除")
@@ -82,7 +83,7 @@ public class GroupManagerActivity extends Activity{
                                 }
                                 else{
 
-                                    deletecontent(pid);// 删除操作
+                                    deletecontent(pid,gid);// 删除操作
                                     flush();
                                 }
                             }
@@ -115,8 +116,9 @@ public class GroupManagerActivity extends Activity{
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
-                        int num=(int)(1000*Math.random())+2;
-                        insertGroup(inputServer.getText().toString(), num + "");
+                        int num = (int) (1000 * Math.random()) + 2;
+                        int num2 = data1.size() + 1;
+                        insertGroup(inputServer.getText().toString(), num2 + "");
                         flush();
 
                     }
@@ -134,7 +136,7 @@ public class GroupManagerActivity extends Activity{
         gpadapter = new GroupManagerAdapter(data1,GroupManagerActivity.this);
         //grouplist.setAdapter(gpadapter);
         grouplist.setAdapter(new SimpleAdapter(getApplicationContext(), data1, R.layout.layout_parent2,
-                new String[]{"gname", "pid"}, new int[]{R.id.mangroup_name, R.id.gmpid}));
+                new String[]{"gname", "pid", "id"}, new int[]{R.id.mangroup_name, R.id.gmpid, R.id.gmid}));
 
     }
     /**
@@ -156,14 +158,28 @@ public class GroupManagerActivity extends Activity{
      * 删除联系人
      * @param pid
      */
-    private void deletecontent(String pid){
+    private void deletecontent(String pid,String id){
         SQLiteDatabase db = dbh.getWritableDatabase();
         String sql2 ="delete from content1 where pid =?";
-        String sql3 ="delete from fenzu where pid =?";
         String[] bindArgs = new String[]{pid};
+        String sql3 ="delete from fenzu where id =?";
+        String[] bindArgs2 = new String[]{id};
+        db.execSQL(sql3, bindArgs2);
         db.execSQL(sql2, bindArgs);
-        db.execSQL(sql3, bindArgs);
         sql2= null;
+        sql3=null;
+        db.close();
+
+    }
+    /**
+     * 删除联系人
+     * @param id
+     */
+    private void deletecontentid(String id){
+        SQLiteDatabase db = dbh.getWritableDatabase();
+        String sql3 ="delete from fenzu where id =?";
+        String[] bindArgs = new String[]{id};
+        db.execSQL(sql3, bindArgs);
         sql3=null;
         db.close();
 
@@ -181,9 +197,11 @@ public class GroupManagerActivity extends Activity{
                 c.moveToPosition(i);//移动到指定记录
                 String gname = c.getString(c.getColumnIndex("gname"));
                 String pid = c.getString(c.getColumnIndex("pid"));
+                String gid = c.getString(c.getColumnIndex("id"));
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("gname", gname);
                 map.put("pid",pid);
+                map.put("id",gid);
                 data.add(map);
 
             }

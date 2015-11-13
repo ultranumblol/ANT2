@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -29,6 +28,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -222,43 +222,7 @@ public class ContactsActivity extends Activity{
 				final TextView name = (TextView) arg1.findViewById(R.id.name);
 				final TextView phone = (TextView) arg1.findViewById(R.id.number);
                 final TextView rank = (TextView) arg1.findViewById(R.id.rank);
-				AlertDialog.Builder builder = new AlertDialog.Builder(ContactsActivity.this);
-				builder.setTitle("请选择");
-				//指定下拉列表的显示数据
-
-				final String[] types = {"添加到手机通讯录", "添加到常用联系人", "发送短信"};
-				builder.setItems(types, new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						String select = types[which];
-						if (select.equals("添加到手机通讯录")) {
-							testInsert(name.getText().toString(), phone.getText().toString());
-							Toast.makeText(ContactsActivity.this, "添加成功!", Toast.LENGTH_LONG).show();
-						}
-
-						if (select.equals("添加到常用联系人")) {
-							//添加数据到数据库常用联系人
-							insert(name.getText().toString(), phone.getText().toString(),1+"",rank.getText().toString());
-							Toast.makeText(ContactsActivity.this, "添加成功!", Toast.LENGTH_LONG).show();
-						}
-
-						if (select.equals("发送短信")) {
-							String num = phone.getText().toString();
-							Uri smsToUri = Uri.parse("smsto:" + num);
-
-							Intent intent = new Intent(Intent.ACTION_SENDTO, smsToUri);
-
-							intent.putExtra("sms_body", "");
-
-							startActivity(intent);
-						}
-
-
-
-					}
-				});
-				builder.show();
+                testDialog(name.getText().toString(),phone.getText().toString(),rank.getText().toString());
 				return true;
 			}
 		});
@@ -309,6 +273,95 @@ public class ContactsActivity extends Activity{
 
 
 	}
+    private void testDialog(final String dataname, final String dataphone, final String datarank){
+        List<Map<String,Object>> data = new ArrayList<Map<String, Object>>();
+        data=queryGroup();
+        LinearLayout linearLayoutMain = new LinearLayout(this);//自定义一个布局文件
+        linearLayoutMain.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        ListView listView = new ListView(this);//this为获取当前的上下文
+        listView.setFadingEdgeLength(0);
+
+        List<Map<String, String>> nameList = new ArrayList<Map<String, String>>();
+       //建立一个数组存储listview上显示的数据
+        Map<String, String> defMap1 = new HashMap<String, String>();
+        defMap1.put("name","添加到手机通讯录");
+        defMap1.put("pid","-1");
+        nameList.add(defMap1);
+        Map<String, String> defMap2 = new HashMap<String, String>();
+        defMap2.put("name", "添加到常用联系人");
+        defMap2.put("pid","-2");
+        nameList.add(defMap2);
+        Map<String, String> defMap3 = new HashMap<String, String>();
+        defMap3.put("name","发送短信");
+        defMap3.put("pid","-3");
+        nameList.add(defMap3);
+
+        for (int m = 2; m < data.size(); m++) {//initData为一个list类型的数据源
+            Map<String, String> nameMap = new HashMap<String, String>();
+            nameMap.put("name", "添加联系人到"+data.get(m).get("gname").toString()+"分组");
+            nameMap.put("pid", data.get(m).get("pid").toString());
+            nameList.add(nameMap);
+        }
+
+        SimpleAdapter adapter = new SimpleAdapter(ContactsActivity.this,
+                nameList, R.layout.layout_parent3,
+                new String[] { "name","pid" },
+                new int[] { R.id.dialog_gname,R.id.dialog_pid });
+        listView.setAdapter(adapter);
+
+        linearLayoutMain.addView(listView);//往这个布局中加入listview
+
+        final AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("请选择").setView(linearLayoutMain)//在这里把写好的这个listview的布局加载dialog中
+                .create();
+        dialog.setCanceledOnTouchOutside(true);//使除了dialog以外的地方不能被点击
+        dialog.show();
+        listView.setOnItemClickListener(new OnItemClickListener() {//响应listview中的item的点击事件
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                // TODO Auto-generated method stub
+                TextView name = (TextView) arg1
+                        .findViewById(R.id.dialog_gname);//取得每条item中的textview控件
+                TextView pid = (TextView) arg1
+                        .findViewById(R.id.dialog_pid);//取得每条item中的textview控件
+
+                if (name.getText().toString().equals("添加到手机通讯录")) {
+                    testInsert(dataname, dataphone);
+                    Toast.makeText(ContactsActivity.this, "添加成功!", Toast.LENGTH_SHORT).show();
+                }
+
+                if (name.getText().toString().equals("添加到常用联系人")) {
+                    //添加数据到数据库常用联系人
+                    insert(dataname, dataphone, 1 + "", datarank);
+                    Toast.makeText(ContactsActivity.this, "添加成功!", Toast.LENGTH_SHORT).show();
+                }
+
+                if (name.getText().toString().equals("发送短信")) {
+                    String num = dataphone;
+                    Uri smsToUri = Uri.parse("smsto:" + num);
+
+                    Intent intent = new Intent(Intent.ACTION_SENDTO, smsToUri);
+
+                    intent.putExtra("sms_body", "");
+
+                    startActivity(intent);
+                }
+                if (name.getText().toString().contains("分组")){
+                    Log.i("xml",name.getText().toString()+"=="+pid.getText().toString());
+                    Log.i("xml",dataname+"=="+dataphone+"=="+pid.getText().toString()+"=="+datarank);
+                    insert(dataname, dataphone, pid.getText().toString()+"", datarank);
+                    Toast.makeText(ContactsActivity.this, "添加成功!", Toast.LENGTH_SHORT).show();
+                }
+
+
+                dialog.cancel();
+            }
+        });
+
+    }
 	/**
 	 * 添加单个联系人
 	 * @param name

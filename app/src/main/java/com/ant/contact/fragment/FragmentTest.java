@@ -270,7 +270,7 @@ public class FragmentTest extends Fragment {
             }
         }
         //Log.i("xml","diyicichaxun======"+data.size());
-        // Log.i("xml","diyicichaxun======"+data.toString());
+         Log.i("xml","diyicichaxun======"+data.toString());
         db.close();
         return data;
     };

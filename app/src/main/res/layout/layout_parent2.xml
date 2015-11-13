@@ -27,6 +27,13 @@
             android:id="@+id/gmpid"
             android:visibility="invisible"
             android:layout_weight="1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="id"
+            android:id="@+id/gmid"
+            android:visibility="gone"
+            android:layout_weight="1"/>
         <ImageView
             android:layout_width="15dp"
             android:layout_height="15dp"
