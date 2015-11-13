@@ -33,65 +33,309 @@ ADDED from AndroidManifest.xml:11:5
 		ADDED from AndroidManifest.xml:13:9
 	android:theme
 		ADDED from AndroidManifest.xml:15:9
-activity#com.ant.contact.Activity.StartActivity
+meta-data#UMENG_APPKEY
 ADDED from AndroidManifest.xml:16:9
-	android:label
+	android:value
 		ADDED from AndroidManifest.xml:18:13
-	android:launchMode
-		ADDED from AndroidManifest.xml:19:13
 	android:name
 		ADDED from AndroidManifest.xml:17:13
-intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:20:13
-action#android.intent.action.MAIN
-ADDED from AndroidManifest.xml:21:17
+meta-data#UMENG_MESSAGE_SECRET
+ADDED from AndroidManifest.xml:20:9
+	android:value
+		ADDED from AndroidManifest.xml:22:13
 	android:name
-		ADDED from AndroidManifest.xml:21:25
-category#android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:23:17
-	android:name
-		ADDED from AndroidManifest.xml:23:27
-activity#com.ant.contact.Activity.ContactsActivity
+		ADDED from AndroidManifest.xml:21:13
+service#com.umeng.message.UmengService
 ADDED from AndroidManifest.xml:26:9
+	android:process
+		ADDED from AndroidManifest.xml:30:13
+	android:label
+		ADDED from AndroidManifest.xml:29:13
+	android:exported
+		ADDED from AndroidManifest.xml:28:13
 	android:name
-		ADDED from AndroidManifest.xml:26:19
+		ADDED from AndroidManifest.xml:27:13
+intent-filter#com.ant.contact.intent.action.START
+ADDED from AndroidManifest.xml:31:13
+action#com.ant.contact.intent.action.START
+ADDED from AndroidManifest.xml:32:17
+	android:name
+		ADDED from AndroidManifest.xml:32:25
+intent-filter#com.ant.contact.intent.action.COCKROACH
+ADDED from AndroidManifest.xml:34:13
+action#com.ant.contact.intent.action.COCKROACH
+ADDED from AndroidManifest.xml:35:17
+	android:name
+		ADDED from AndroidManifest.xml:35:25
+intent-filter#org.agoo.android.intent.action.PING_V4+umeng
+ADDED from AndroidManifest.xml:37:13
+action#org.agoo.android.intent.action.PING_V4
+ADDED from AndroidManifest.xml:38:17
+	android:name
+		ADDED from AndroidManifest.xml:38:25
+category#umeng
+ADDED from AndroidManifest.xml:40:17
+	android:name
+		ADDED from AndroidManifest.xml:40:27
+service#com.umeng.message.UmengIntentService
+ADDED from AndroidManifest.xml:45:9
+	android:process
+		ADDED from AndroidManifest.xml:47:13
+	android:name
+		ADDED from AndroidManifest.xml:46:13
+service#com.umeng.message.UmengMessageIntentReceiverService
+ADDED from AndroidManifest.xml:50:9
+	android:process
+		ADDED from AndroidManifest.xml:53:13
+	android:exported
+		ADDED from AndroidManifest.xml:52:13
+	android:name
+		ADDED from AndroidManifest.xml:51:13
+intent-filter#org.android.agoo.client.MessageReceiverService
+ADDED from AndroidManifest.xml:54:13
+action#org.android.agoo.client.MessageReceiverService
+ADDED from AndroidManifest.xml:55:17
+	android:name
+		ADDED from AndroidManifest.xml:55:25
+intent-filter#org.android.agoo.client.ElectionReceiverService
+ADDED from AndroidManifest.xml:57:13
+action#org.android.agoo.client.ElectionReceiverService
+ADDED from AndroidManifest.xml:58:17
+	android:name
+		ADDED from AndroidManifest.xml:58:25
+service#com.umeng.message.UmengMessageCallbackHandlerService
+ADDED from AndroidManifest.xml:63:9
+	android:exported
+		ADDED from AndroidManifest.xml:65:13
+	android:name
+		ADDED from AndroidManifest.xml:64:13
+intent-filter#com.umeng.messge.registercallback.action
+ADDED from AndroidManifest.xml:66:13
+action#com.umeng.messge.registercallback.action
+ADDED from AndroidManifest.xml:67:17
+	android:name
+		ADDED from AndroidManifest.xml:67:25
+intent-filter#com.umeng.message.unregistercallback.action
+ADDED from AndroidManifest.xml:69:13
+action#com.umeng.message.unregistercallback.action
+ADDED from AndroidManifest.xml:70:17
+	android:name
+		ADDED from AndroidManifest.xml:70:25
+intent-filter#com.umeng.message.message.handler.action
+ADDED from AndroidManifest.xml:72:13
+action#com.umeng.message.message.handler.action
+ADDED from AndroidManifest.xml:73:17
+	android:name
+		ADDED from AndroidManifest.xml:73:25
+intent-filter#com.umeng.message.autoupdate.handler.action
+ADDED from AndroidManifest.xml:75:13
+action#com.umeng.message.autoupdate.handler.action
+ADDED from AndroidManifest.xml:76:17
+	android:name
+		ADDED from AndroidManifest.xml:76:25
+service#com.umeng.message.UmengDownloadResourceService
+ADDED from AndroidManifest.xml:81:9
+	android:name
+		ADDED from AndroidManifest.xml:81:18
+service#com.umeng.message.local.UmengLocalNotificationService
+ADDED from AndroidManifest.xml:85:9
+	android:exported
+		ADDED from AndroidManifest.xml:87:13
+	android:name
+		ADDED from AndroidManifest.xml:86:13
+receiver#com.umeng.message.NotificationProxyBroadcastReceiver
+ADDED from AndroidManifest.xml:89:9
+	android:exported
+		ADDED from AndroidManifest.xml:91:13
+	android:name
+		ADDED from AndroidManifest.xml:90:13
+receiver#com.umeng.message.SystemReceiver
+ADDED from AndroidManifest.xml:95:9
+	android:process
+		ADDED from AndroidManifest.xml:97:13
+	android:name
+		ADDED from AndroidManifest.xml:96:13
+intent-filter#android.intent.action.BOOT_COMPLETED
+ADDED from AndroidManifest.xml:98:13
+action#android.intent.action.BOOT_COMPLETED
+ADDED from AndroidManifest.xml:99:17
+	android:name
+		ADDED from AndroidManifest.xml:99:25
+intent-filter#android.net.conn.CONNECTIVITY_CHANGE
+ADDED from AndroidManifest.xml:101:13
+action#android.net.conn.CONNECTIVITY_CHANGE
+ADDED from AndroidManifest.xml:102:17
+	android:name
+		ADDED from AndroidManifest.xml:102:25
+intent-filter#android.intent.action.PACKAGE_REMOVED
+ADDED from AndroidManifest.xml:104:13
+action#android.intent.action.PACKAGE_REMOVED
+ADDED from AndroidManifest.xml:105:17
+	android:name
+		ADDED from AndroidManifest.xml:105:25
+data
+ADDED from AndroidManifest.xml:107:17
+	android:scheme
+		ADDED from AndroidManifest.xml:107:23
+receiver#com.umeng.message.MessageReceiver
+ADDED from AndroidManifest.xml:112:9
+	android:process
+		ADDED from AndroidManifest.xml:115:13
+	android:exported
+		ADDED from AndroidManifest.xml:114:13
+	android:name
+		ADDED from AndroidManifest.xml:113:13
+intent-filter#org.agoo.android.intent.action.RECEIVE
+ADDED from AndroidManifest.xml:116:13
+action#org.agoo.android.intent.action.RECEIVE
+ADDED from AndroidManifest.xml:117:17
+	android:name
+		ADDED from AndroidManifest.xml:117:25
+receiver#com.umeng.message.ElectionReceiver
+ADDED from AndroidManifest.xml:122:9
+	android:process
+		ADDED from AndroidManifest.xml:124:13
+	android:name
+		ADDED from AndroidManifest.xml:123:13
+intent-filter#org.agoo.android.intent.action.ELECTION_RESULT_V4+umeng
+ADDED from AndroidManifest.xml:125:13
+action#org.agoo.android.intent.action.ELECTION_RESULT_V4
+ADDED from AndroidManifest.xml:126:17
+	android:name
+		ADDED from AndroidManifest.xml:126:25
+receiver#com.umeng.message.RegistrationReceiver
+ADDED from AndroidManifest.xml:134:9
+	android:exported
+		ADDED from AndroidManifest.xml:136:13
+	android:name
+		ADDED from AndroidManifest.xml:135:13
+intent-filter#com.ant.contact.intent.action.COMMAND
+ADDED from AndroidManifest.xml:137:13
+action#com.ant.contact.intent.action.COMMAND
+ADDED from AndroidManifest.xml:138:17
+	android:name
+		ADDED from AndroidManifest.xml:138:25
+receiver#com.umeng.message.UmengMessageBootReceiver
+ADDED from AndroidManifest.xml:141:9
+	android:name
+		ADDED from AndroidManifest.xml:141:19
+meta-data#UMENG_CHANNEL
+ADDED from AndroidManifest.xml:150:9
+	android:value
+		ADDED from AndroidManifest.xml:152:13
+	android:name
+		ADDED from AndroidManifest.xml:151:13
+activity#com.ant.contact.Activity.StartActivity
+ADDED from AndroidManifest.xml:154:9
+	android:label
+		ADDED from AndroidManifest.xml:156:13
+	android:launchMode
+		ADDED from AndroidManifest.xml:157:13
+	android:name
+		ADDED from AndroidManifest.xml:155:13
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:158:13
+action#android.intent.action.MAIN
+ADDED from AndroidManifest.xml:159:17
+	android:name
+		ADDED from AndroidManifest.xml:159:25
+category#android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:161:17
+	android:name
+		ADDED from AndroidManifest.xml:161:27
+service#com.umeng.update.net.DownloadingService
+ADDED from AndroidManifest.xml:165:9
+	android:process
+		ADDED from AndroidManifest.xml:167:13
+	android:name
+		ADDED from AndroidManifest.xml:166:13
+activity#com.umeng.update.UpdateDialogActivity
+ADDED from AndroidManifest.xml:170:9
+	android:theme
+		ADDED from AndroidManifest.xml:172:13
+	android:name
+		ADDED from AndroidManifest.xml:171:13
+activity#com.ant.contact.Activity.ContactsActivity
+ADDED from AndroidManifest.xml:174:9
+	android:name
+		ADDED from AndroidManifest.xml:174:19
 activity#com.ant.contact.Activity.MainActivity
-ADDED from AndroidManifest.xml:27:9
+ADDED from AndroidManifest.xml:176:9
 	android:name
-		ADDED from AndroidManifest.xml:27:19
+		ADDED from AndroidManifest.xml:176:19
 activity#com.ant.contact.Activity.GroupManagerActivity
-ADDED from AndroidManifest.xml:28:9
+ADDED from AndroidManifest.xml:178:9
 	android:name
-		ADDED from AndroidManifest.xml:28:19
+		ADDED from AndroidManifest.xml:178:19
 activity#com.ant.contact.Activity.LoginActivity
-ADDED from AndroidManifest.xml:29:9
+ADDED from AndroidManifest.xml:180:9
 	android:name
-		ADDED from AndroidManifest.xml:29:19
-uses-permission#android.permission.READ_CALL_LOG
-ADDED from AndroidManifest.xml:32:5
-	android:name
-		ADDED from AndroidManifest.xml:32:22
-uses-permission#android.permission.WRITE_CALL_LOG
-ADDED from AndroidManifest.xml:33:5
-	android:name
-		ADDED from AndroidManifest.xml:33:22
-uses-permission#android.permission.READ_CONTACTS
-ADDED from AndroidManifest.xml:34:5
-	android:name
-		ADDED from AndroidManifest.xml:34:22
-uses-permission#android.permission.WRITE_CONTACTS
-ADDED from AndroidManifest.xml:35:5
-	android:name
-		ADDED from AndroidManifest.xml:35:22
+		ADDED from AndroidManifest.xml:180:19
 uses-permission#android.permission.INTERNET
-ADDED from AndroidManifest.xml:37:5
+ADDED from AndroidManifest.xml:184:5
 	android:name
-		ADDED from AndroidManifest.xml:37:22
+		ADDED from AndroidManifest.xml:184:22
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from AndroidManifest.xml:39:5
+ADDED from AndroidManifest.xml:185:5
 	android:name
-		ADDED from AndroidManifest.xml:39:22
+		ADDED from AndroidManifest.xml:185:22
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from AndroidManifest.xml:186:5
+	android:name
+		ADDED from AndroidManifest.xml:186:22
+uses-permission#android.permission.CHANGE_NETWORK_STATE
+ADDED from AndroidManifest.xml:187:5
+	android:name
+		ADDED from AndroidManifest.xml:187:22
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from AndroidManifest.xml:188:5
+	android:name
+		ADDED from AndroidManifest.xml:188:22
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from AndroidManifest.xml:189:5
+	android:name
+		ADDED from AndroidManifest.xml:189:22
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from AndroidManifest.xml:190:5
+	android:name
+		ADDED from AndroidManifest.xml:190:22
+uses-permission#android.permission.WAKE_LOCK
+ADDED from AndroidManifest.xml:191:5
+	android:name
+		ADDED from AndroidManifest.xml:191:22
+uses-permission#android.permission.VIBRATE
+ADDED from AndroidManifest.xml:192:5
+	android:name
+		ADDED from AndroidManifest.xml:192:22
+uses-permission#android.permission.WRITE_SETTINGS
+ADDED from AndroidManifest.xml:193:5
+	android:name
+		ADDED from AndroidManifest.xml:193:22
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from AndroidManifest.xml:194:5
+	android:name
+		ADDED from AndroidManifest.xml:194:22
+uses-permission#android.permission.GET_TASKS
+ADDED from AndroidManifest.xml:196:5
+	android:name
+		ADDED from AndroidManifest.xml:196:22
+uses-permission#android.permission.READ_CALL_LOG
+ADDED from AndroidManifest.xml:199:5
+	android:name
+		ADDED from AndroidManifest.xml:199:22
+uses-permission#android.permission.WRITE_CALL_LOG
+ADDED from AndroidManifest.xml:200:5
+	android:name
+		ADDED from AndroidManifest.xml:200:22
+uses-permission#android.permission.READ_CONTACTS
+ADDED from AndroidManifest.xml:201:5
+	android:name
+		ADDED from AndroidManifest.xml:201:22
+uses-permission#android.permission.WRITE_CONTACTS
+ADDED from AndroidManifest.xml:202:5
+	android:name
+		ADDED from AndroidManifest.xml:202:22
 uses-permission#android.permission.CALL_PHONE
-ADDED from AndroidManifest.xml:40:5
+ADDED from AndroidManifest.xml:208:5
 	android:name
-		ADDED from AndroidManifest.xml:40:22
+		ADDED from AndroidManifest.xml:208:22

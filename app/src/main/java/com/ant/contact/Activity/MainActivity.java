@@ -21,6 +21,9 @@ import android.widget.TextView;
 import com.ant.contact.R;
 import com.ant.contact.fragment.Fragment6;
 import com.ant.contact.fragment.FragmentTest;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UmengRegistrar;
+import com.umeng.update.UmengUpdateAgent;
 
 import java.util.ArrayList;
 
@@ -43,6 +46,11 @@ public class MainActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
+		UmengUpdateAgent.update(this);
+		PushAgent mPushAgent = PushAgent.getInstance(this);
+		mPushAgent.enable();
+		String device_token = UmengRegistrar.getRegistrationId(MainActivity.this);
+		Log.i("xml", device_token + "device_token!");
 		initView();
 	}
 	public void initView() {

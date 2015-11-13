@@ -78,4 +78,4 @@
         android:id="@+id/textChild3_pid"
         android:visibility="gone"/>
 
-</RelativeLayout><!-- From: file:/C:/Users/qwerr/workspace/ANT2/app/src/main/res/layout/list_contact_item.xml -->
+</RelativeLayout><!-- From: file:/C:/Users/qwerr/Desktop/ANT2/app/src/main/res/layout/list_contact_item.xml -->

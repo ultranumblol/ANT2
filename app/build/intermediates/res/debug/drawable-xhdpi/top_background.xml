@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <bitmap xmlns:android="http://schemas.android.com/apk/res/android" 
     android:src="@drawable/search_top_background"
-    android:tileMode="repeat"/><!-- From: file:/C:/Users/qwerr/workspace/ANT2/app/src/main/res/drawable-xhdpi/top_background.xml -->
+    android:tileMode="repeat"/><!-- From: file:/C:/Users/qwerr/Desktop/ANT2/app/src/main/res/drawable-xhdpi/top_background.xml -->
