@@ -37,9 +37,7 @@ public class MainActivity extends FragmentActivity {
 	private ImageView imgbar1,imgbar2;
 	private LinearLayout bar1,bar2;
 	private TextView bartv1,bartv2;
-	//private int lcurmainMaskImageId = R.id.bar1;// 当前选中的导航栏图标 默认第一个
 	FragmentManager fm;
-	// 页面列表
 	private ArrayList<Fragment> fragmentList;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +70,8 @@ public class MainActivity extends FragmentActivity {
 		final MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(
 				getSupportFragmentManager(), fragmentList);
 		m_vp.setAdapter(adapter);
-		m_vp.setCurrentItem(0);//初始化默认pager是第一页
-		bartv1.setTextColor(getResources().getColor(white));//初始化导航栏字体颜色
+		m_vp.setCurrentItem(0);
+		bartv1.setTextColor(getResources().getColor(white));
 		bartv2.setTextColor(getResources().getColor(gray));
 		m_vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 			@Override
@@ -108,8 +106,7 @@ public class MainActivity extends FragmentActivity {
 	}
 
     /**
-     * 获得联系人页面(contactsActivity)返回的 "该刷新了"信息，将该信息通过fragmentmanager的findfragmentbyid ，找到
-     * 联系人分组页面(fragmentTest),传递到该fragment的onActivityResult方法中，执行刷新操作
+
      *
      * @param requestCode
      * @param resultCode
@@ -187,10 +184,7 @@ public class MainActivity extends FragmentActivity {
 		@Override
 		public void onClick(View v) {
 			int id = v.getId();
-			/*if(lcurmainMaskImageId==id){// 判断当前点击的view id 是否与刚才点的 id 一致
 
-				return;
-			}*/
 			switch (id){
 				case R.id.bar1:
 					//lcurmainMaskImageId=R.id.bar1;
@@ -216,10 +210,7 @@ public class MainActivity extends FragmentActivity {
 	}
 	public void BaronClick (View view){
 		int id = view.getId();
-		/*if(lcurmainMaskImageId==id){// 判断当前点击的view id 是否与刚才点的 id 一致
 
-			return;
-		}*/
 		switch (id){
 			case R.id.bar1:
 				//lcurmainMaskImageId=R.id.bar1;
@@ -244,7 +235,7 @@ public class MainActivity extends FragmentActivity {
 		}
 
 	}
-	//翻页动画1
+
 	public class DepthPageTransformer implements PageTransformer {
 		float MIN_SCALE = 0.75f;
 
@@ -280,7 +271,7 @@ public class MainActivity extends FragmentActivity {
 		}
 
 	}
-	//翻页动画2
+	//锟斤拷页锟斤拷锟斤拷2
 	public class ZoomOutPageTransformer implements ViewPager.PageTransformer
 	{
 		private static final float MIN_SCALE = 0.85f;
@@ -299,7 +290,7 @@ public class MainActivity extends FragmentActivity {
 				// This page is way off-screen to the left.
 				view.setAlpha(0);
 
-			} else if (position <= 1) //a页滑动至b页 ； a页从 0.0 -1 ；b页从1 ~ 0.0
+			} else if (position <= 1)
 			{ // [-1,1]
 				// Modify the default slide transition to shrink the page as well
 				float scaleFactor = Math.max(MIN_SCALE, 1 - Math.abs(position));

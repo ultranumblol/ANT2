@@ -9,18 +9,24 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.ant.contact.Activity.ContactsActivity;
 import com.ant.contact.R;
 import com.ant.contact.Util.OnDataFinishedListener;
 import com.ant.contact.Util.QuerXmlData;
+import com.ant.contact.View.ReboundScrollView;
 import com.ant.contact.adapter.SimpleTreeAdapter;
 import com.ant.contact.bean.FileBean;
 import com.ant.contact.bean.Node;
@@ -43,10 +49,13 @@ import java.util.Map;
  */
 public class Fragment6 extends Fragment {
     private List<FileBean> mDatas = new ArrayList<FileBean>();
-    private ListView mTree;
+    private ListView mTree,listView2;
     private List<Map<String, Object>> constest;
     private TreeListViewAdapter mAdapter;
     private LinearLayout reflesh2;
+    private ImageView ivDeleteText2;
+    private EditText etSearch2;
+    private ReboundScrollView reboundScrollView,reboundScrollView2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,10 +85,53 @@ public class Fragment6 extends Fragment {
     }
     private void init(View view) {
         //mTree = (ListView) view.findViewById(R.id.id_tree);
+        reboundScrollView = (ReboundScrollView) view.findViewById(R.id.zuzhi_sv);
+        reboundScrollView2 = (ReboundScrollView) view.findViewById(R.id.zuzhi_sv2);
         mTree = (ListView) view.findViewById(R.id.list_1_1);
+        listView2 = (ListView) view.findViewById(R.id.list_1_2);
         reflesh2= (LinearLayout) view.findViewById(R.id.refesh2);
+        //搜索功能
+        listView2.setAdapter(new SimpleAdapter(getActivity(),testData(),R.layout.list_contact_item,
+                new String[]{"name", "phone"}, new int[]{R.id.name, R.id.number}));
 
 
+        ivDeleteText2 = (ImageView)view.findViewById(R.id.ivDeleteText2);
+        etSearch2 = (EditText)view.findViewById(R.id.etSearch2);
+        ivDeleteText2.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                etSearch2.setText("");
+            }
+        });
+        //搜索框输入文字监听
+        etSearch2.addTextChangedListener(new TextWatcher() {
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // TODO Auto-generated method stub
+
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+
+            }
+
+            public void afterTextChanged(Editable s) {
+                if (s.length() == 0) {
+                    ivDeleteText2.setVisibility(View.GONE);
+                    reboundScrollView.setVisibility(View.VISIBLE);
+                    reboundScrollView2.setVisibility(View.GONE);
+                } else {
+                    ivDeleteText2.setVisibility(View.VISIBLE);
+                    reboundScrollView.setVisibility(View.GONE);
+                    reboundScrollView2.setVisibility(View.VISIBLE);
+                }
+                //myhandler.post(eChanged);
+                search1();
+
+            }
+        });
 
         reflesh2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,8 +169,25 @@ public class Fragment6 extends Fragment {
 
         initDatas();
     }
+  private List<Map<String, Object>> testData(){
+      List<Map<String,Object>> data = new ArrayList<Map<String, Object>>();
+      for (int i = 0 ; i <20 ; i++){
+          Map<String, Object> map = new HashMap<String, Object>();
+          map . put("name", "ceshi"+i);
+          map. put("phone", "qqqq" + i + i);
+          data.add(map);
 
 
+      }
+
+     return data;
+
+  }
+    private void search1(){
+        String input = etSearch2.getText().toString();
+        //Log.i("xml","search方法： constest有："+constest.toString());
+        //getmDataSub(peos2, input);//获取更新数据
+    }
 
     //初始化数据
     private void initDatas() {

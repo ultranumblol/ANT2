@@ -9,13 +9,6 @@
         <dex dex="C:\Users\qwerr\Desktop\ANT2\app\build\intermediates\pre-dexed\debug\dom4j-2.0.0-RC1-468c9567470998e8ef9a1ca86c013c45d5aeeefb.jar" />
     </item>
     <item
-        jar="C:\Users\qwerr\Desktop\ANT2\app\libs\com.umeng.message.lib_v2.5.0.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="b16ba4b393ff072ba84cc5c922db5800e7b9e3a3">
-        <dex dex="C:\Users\qwerr\Desktop\ANT2\app\build\intermediates\pre-dexed\debug\com.umeng.message.lib_v2.5.0-f7b23efd816e0a2da89ed1a60ae33da0d2274785.jar" />
-    </item>
-    <item
         jar="E:\anzhuo\anzhuo\adt-bundle-windows-x86-20140702\sdk\extras\android\m2repository\com\android\support\support-v4\18.0.0\support-v4-18.0.0.jar"
         jumboMode="false"
         revision="23.0.1"
@@ -28,6 +21,13 @@
         revision="23.0.1"
         sha1="197e497b95d34c42c8725f2bc4a58ede6040ba95">
         <dex dex="C:\Users\qwerr\Desktop\ANT2\app\build\intermediates\pre-dexed\debug\nineoldandroids-2.4.0-df5e1433299971aa1511db042975a37e9fc87cfb.jar" />
+    </item>
+    <item
+        jar="C:\Users\qwerr\Desktop\ANT2\app\libs\com.umeng.message.lib_v2.5.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="b16ba4b393ff072ba84cc5c922db5800e7b9e3a3">
+        <dex dex="C:\Users\qwerr\Desktop\ANT2\app\build\intermediates\pre-dexed\debug\com.umeng.message.lib_v2.5.0-f7b23efd816e0a2da89ed1a60ae33da0d2274785.jar" />
     </item>
     <item
         jar="C:\Users\qwerr\Desktop\ANT2\app\libs\umeng-update-v2.6.0.1.jar"

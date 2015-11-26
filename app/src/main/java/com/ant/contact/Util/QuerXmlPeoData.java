@@ -2,7 +2,6 @@ package com.ant.contact.Util;
 
 import android.R.integer;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.ant.contact.xmlparser.People;
 import com.ant.contact.xmlparser.PeopleParser;
@@ -14,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 /**
- * Òì²½²éÑ¯xmlÊý¾Ý£¬Í¨¹ý»Øµ÷½Ó¿Ú·µ»ØÒ»¸ölistmap½á¹û¼¯
+ * ï¿½ì²½ï¿½ï¿½Ñ¯xmlï¿½ï¿½ï¿½Ý£ï¿½Í¨ï¿½ï¿½ï¿½Øµï¿½ï¿½Ó¿Ú·ï¿½ï¿½ï¿½Ò»ï¿½ï¿½listmapï¿½ï¿½ï¿½ï¿½ï¿½
  */
 
 public class QuerXmlPeoData extends AsyncTask<integer, integer, List<Map<String, Object>>>{
@@ -30,10 +29,10 @@ public class QuerXmlPeoData extends AsyncTask<integer, integer, List<Map<String,
 	@Override
 	protected List<Map<String, Object>> doInBackground(integer... params) {
 		peos = new ArrayList<Map<String,Object>>();
-		SignMaker sm = new SignMaker();//ÊµÀý»¯
+		SignMaker sm = new SignMaker();//Êµï¿½ï¿½ï¿½ï¿½
 		String setctorid = "setctorid="+sid;
-		String sign =sm.getsign("username=123","password=123", setctorid);//Í¨¹ýÓÃ»§Ãû£¬ÃÜÂëÖÆ×÷sign
-		Log.i("xml","Ç©ÃûÊÇ£º"+sign);
+		String sign =sm.getsign("username=123","password=123", setctorid);//Í¨ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sign
+		//Log.i("xml","Ç©ï¿½ï¿½ï¿½Ç£ï¿½"+sign);
 		XmlInputStream xmlInputStream = new XmlInputStream();
 		//InputStream is = getActivity().getAssets().open("ant.xml"); 
 		InputStream is= xmlInputStream.getStream("username=123","password=123", setctorid, sign);
@@ -41,7 +40,7 @@ public class QuerXmlPeoData extends AsyncTask<integer, integer, List<Map<String,
 		try {
 			mpeoples=pParser.parse(is);								 
 			for(People peoples:mpeoples){
-				//Log.i("xml", "½á¹ûÊÇ£º"+contacts.toString());
+				//Log.i("xml", "ï¿½ï¿½ï¿½ï¿½Ç£ï¿½"+contacts.toString());
 				Map<String, Object> map = new HashMap<String, Object>();
 				if (peoples.getPhone()==null) {					
 					map.put("phone", "---");
@@ -55,8 +54,8 @@ public class QuerXmlPeoData extends AsyncTask<integer, integer, List<Map<String,
 				map.put("ranke",peoples.getRank());
 				peos.add(map);	
 			}
-			//Log.i("xml","Êý¾Ý²éÑ¯Íê±Ï1");
-			//Log.i("xml","------consÖÐÓÐ"+cons.size()+"ÌõÊý¾Ý");
+			//Log.i("xml","ï¿½ï¿½ï¿½Ý²ï¿½Ñ¯ï¿½ï¿½ï¿½1");
+			//Log.i("xml","------consï¿½ï¿½ï¿½ï¿½"+cons.size()+"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		} catch (Exception e) {
 			
 			e.printStackTrace();

@@ -11,15 +11,15 @@ import java.net.URL;
 
 public class XmlInputStream {
 	/**
-	 * Í¨¹ýurl »ñµÃ·þÎñÆ÷·µ»ØµÄxmlÊý¾Ý£¬×ª»»³ÉInputStreamÖÐ
-	 * @param username ÐÕÃû
-	 * @param password ÃÜÂë
-	 * @param sign Ç©Ãû
-	 * @param setctorid ËùÊô²¿ÃÅid
+	 * Í¨ï¿½ï¿½url ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½xmlï¿½ï¿½ï¿½Ý£ï¿½×ªï¿½ï¿½ï¿½ï¿½InputStreamï¿½ï¿½
+	 * @param username ï¿½ï¿½ï¿½ï¿½
+	 * @param password ï¿½ï¿½ï¿½ï¿½
+	 * @param sign Ç©ï¿½ï¿½
+	 * @param setctorid ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id
 	 * @return
 	 */
 	public InputStream getStream(String username,String password,String setctorid,String sign){
-		// ¶¨Òå»ñÈ¡ÎÄ¼þÄÚÈÝµÄURL
+		// ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ýµï¿½URL
 				//String path = "http://hr.chinaant.com/xmlhandler.aspx?username=123&password=123&sign=5B7D1F8CEFBF1C80AEB73329C8A378A1"; 
 				String path ="";
 				String path2 = "http://hr.chinaant.com/xmlhandler.aspx?"+username+"&"+password+"&sign="+sign;
@@ -31,7 +31,8 @@ public class XmlInputStream {
 					path=path3;
 				}
 				
-				Log.i("xml", path2);
+				//Log.i("xml", path2);
+		       Log.i("xml2","path3path3"+ path);
 		        URL myURL = null;
 				try {
 					myURL = new URL(  
@@ -48,7 +49,7 @@ public class XmlInputStream {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}  
-		        //ÉèÖÃÇëÇó³¬Ê±ÓëÇëÇó·½Ê½  
+		        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½  
 		        conn.setReadTimeout(5*1000);  
 		        try {
 					conn.setRequestMethod("GET");
@@ -56,7 +57,7 @@ public class XmlInputStream {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-		        //´ÓÁ´½ÓÖÐ»ñÈ¡Ò»¸öÊäÈëÁ÷¶ÔÏó  
+		        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð»ï¿½È¡Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 		        InputStream inStream = null;
 				try {
 					inStream = conn.getInputStream();
@@ -64,8 +65,8 @@ public class XmlInputStream {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}  
-		        //¶ÔÊäÈëÁ÷½øÐÐ½âÎö  
-		       // Log.i("xml", inStream.toString()+"»ñµÃÊäÈëÁ÷");
+		        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½ï¿½  
+		       // Log.i("xml", inStream.toString()+"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		       return inStream;
 		
 	}

@@ -273,13 +273,16 @@ public class ContactsActivity extends Activity{
 
 
 	}
+    //弹窗，里面是一个listview
     private void testDialog(final String dataname, final String dataphone, final String datarank){
         List<Map<String,Object>> data = new ArrayList<Map<String, Object>>();
         data=queryGroup();
         LinearLayout linearLayoutMain = new LinearLayout(this);//自定义一个布局文件
         linearLayoutMain.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-        ListView listView = new ListView(this);//this为获取当前的上下文
+        ListView listView = new ListView(this);
+        listView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT));
+        //this为获取当前的上下文
         listView.setFadingEdgeLength(0);
 
         List<Map<String, String>> nameList = new ArrayList<Map<String, String>>();
@@ -350,8 +353,8 @@ public class ContactsActivity extends Activity{
                     startActivity(intent);
                 }
                 if (name.getText().toString().contains("分组")){
-                    Log.i("xml",name.getText().toString()+"=="+pid.getText().toString());
-                    Log.i("xml",dataname+"=="+dataphone+"=="+pid.getText().toString()+"=="+datarank);
+                    //Log.i("xml",name.getText().toString()+"=="+pid.getText().toString());
+                    //Log.i("xml",dataname+"=="+dataphone+"=="+pid.getText().toString()+"=="+datarank);
                     insert(dataname, dataphone, pid.getText().toString()+"", datarank);
                     Toast.makeText(ContactsActivity.this, "添加成功!", Toast.LENGTH_SHORT).show();
                 }

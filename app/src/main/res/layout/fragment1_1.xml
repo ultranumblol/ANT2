@@ -64,9 +64,40 @@
 
 
         </RelativeLayout>
+        <RelativeLayout android:id="@+id/rlSearchFrameDelete2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="10dip"
+            >
+
+            <EditText android:id="@+id/etSearch2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:background="@drawable/search_frame"
+                android:layout_marginRight="10dp"
+                android:paddingLeft="32dp"
+                android:textSize="16sp"
+                android:hint="Searching..."/>
+
+            <ImageView android:id="@+id/ivDeleteText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/delete"
+                android:layout_centerInParent="true"
+                android:paddingRight="20dp"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
         <com.ant.contact.View.ReboundScrollView
             android:layout_width="match_parent"
             android:scrollbars="none"
+            android:id="@+id/zuzhi_sv"
             android:layout_marginTop="10dip"
             android:layout_height="match_parent">
         <LinearLayout
@@ -85,6 +116,31 @@
                 ></com.ant.contact.View.ScrollListView>
 
         </LinearLayout>
+        </com.ant.contact.View.ReboundScrollView>
+
+        <com.ant.contact.View.ReboundScrollView
+            android:layout_width="match_parent"
+            android:scrollbars="none"
+            android:id="@+id/zuzhi_sv2"
+            android:visibility="gone"
+            android:layout_marginTop="10dip"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/bg_white_trans">
+
+                <com.ant.contact.View.ScrollListView android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/list_1_2"
+                    android:divider="@color/gray"
+                    android:dividerHeight="1px"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    ></com.ant.contact.View.ScrollListView>
+
+            </LinearLayout>
         </com.ant.contact.View.ReboundScrollView>
     </LinearLayout>
 

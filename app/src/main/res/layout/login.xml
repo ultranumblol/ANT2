@@ -54,6 +54,7 @@
             android:background="@null"
             android:ems="10"
             android:hint="密码"
+            android:password="true"
             android:id="@+id/userpass"
             android:singleLine="true" >
 
